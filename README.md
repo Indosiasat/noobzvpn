@@ -14,3 +14,4 @@ konfigurasi paket data dan bypass paket semua operator
 🇮🇩 Byu
 
 🇮🇩 Tri
+# TES
