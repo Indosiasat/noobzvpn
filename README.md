@@ -1,6 +1,4 @@
-# KONFIGURASI
-konfigurasi paket data dan bypass paket semua operator
-
+# KONFIGURASI HTTP CUSTOM
 <p>🇮🇩 Axis</p>
 
 🇮🇩 XL axiata
