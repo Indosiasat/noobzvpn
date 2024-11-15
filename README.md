@@ -1,7 +1,8 @@
 # KONFIGURASI HTTP CUSTOM
 <p>🇮🇩 Axis</p>
-
-🇮🇩 XL axiata
+<a href="https://raw.githubusercontent.com/Indosiasat/Config/refs/heads/main/.github/workflows/vidio.hc">Axis edu</a> | 
+<p>🇮🇩 XL axiata</p>
+<a href="https://raw.githubusercontent.com/Indosiasat/Config/refs/heads/main/.github/workflows/vidio.hc">Paket vidio</a> | 
 
 🇮🇩 Indosat ooredoo
 
