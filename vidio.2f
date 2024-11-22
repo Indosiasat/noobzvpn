@@ -1,0 +1,499 @@
+[DBG] Failed 'http://blog.staging.vidio.com': GET http://blog.staging.vidio.com giving up after 1 attempts: Get "http://blog.staging.vidio.com": EOF
+
+https://dashboard-quiz.int.vidio.com [200] [34.95.93.223] [Google Cloud,Google Cloud CDN,Google Cloud Storage,HTTP/3]
+
+https://airflow.vidio.com [302] [34.95.108.145] [HTTP/3]
+
+https://airflow.int.vidio.com [302] [35.190.6.114] [HTTP/3]
+
+https://cdn-a.origin.dev.vidio.com [404] [34.95.72.198] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://careers.vidio.com [200] [35.241.0.250] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3,Nginx,Ruby,Ruby on Rails,jQuery]
+
+[DBG] Failed 'http://dev.vidio.com': GET http://dev.vidio.com giving up after 1 attempts: Get "http://dev.vidio.com": EOF
+
+https://api.vidio.com [302] [23.48.23.182]
+
+https://api.staging.vidio.com [302] [35.190.83.167] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://api-ns.vidio.com [401] [34.111.60.67] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://dboreja4fu.int.vidio.com [403] [34.98.125.177] [HTTP/3]
+
+https://design.vidio.com [200] [34.160.116.89] [Google Cloud,Google Cloud CDN,Google Cloud Storage,HTTP/3]
+
+https://aequ1kie7b.vidio.com [403] [34.102.158.190] [HTTP/3]
+[DBG] Failed 'http://api.dev.vidio.com': GET http://api.dev.vidio.com giving up after 1 attempts: Get "http://api.dev.vidio.com": EOF
+
+[DBG] Failed 'http://contract-testing.staging.vidio.com': GET http://contract-testing.staging.vidio.com giving up after 1 attempts: Get "http://contract-testing.staging.vidio.com": EOF
+
+[DBG] Failed 'http://cdp.int.vidio.com': GET http://cdp.int.vidio.com giving up after 1 attempts: Get "http://cdp.int.vidio.com": EOF
+
+https://cxvpemlvbgo-origin-quiz-dsa.int.vidio.com [404] [35.244.147.166] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://api-docs.vidio.com': GET http://api-docs.vidio.com giving up after 1 attempts: Get "http://api-docs.vidio.com": EOF
+
+https://ckp66utx.vidio.com [403] [34.107.146.29] [HTTP/3]
+https://cdp.vidio.com [404] [34.149.107.84] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://app.vidio.com [200] [151.101.1.195] [Firebase,HTTP/3]
+[DBG] Failed 'http://c.vidio.com': GET http://c.vidio.com giving up after 1 attempts: Get "http://c.vidio.com": EOF
+
+https://chatbot.vidio.com [301] [34.160.245.6] [HTTP/3]
+[DBG] Failed 'http://ets-subtitle-generator-api.staging.vidio.com': 
+
+GET http://ets-subtitle-generator-api.staging.vidio.com giving up after 1 attempts: Get "http://ets-subtitle-generator-api.staging.vidio.com": EOF
+
+https://chatbot-api.vidio.com [404] [34.149.213.76] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://blog.vidio.com [200] [34.111.253.69] [Cloudflare,Envoy,Express,Ghost:5.49,Google Analytics,Google Cloud,Google Cloud CDN,Google Tag Manager,HTTP/3,Node.js,cdnjs,jsDelivr]
+
+https://etslive-app.vidio.com [404] [35.227.202.147] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://demo-etslive.int.vidio.com [404] [34.95.101.136] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://8hjrjnvoc3.vidio.com [200] [34.117.205.16] [HTTP/3]
+
+[DBG] Failed 'http://api-ns.int.vidio.com': GET http://api-ns.int.vidio.com giving up after 1 attempts: Get "http://api-ns.int.vidio.com": EOF
+
+http://about.vidio.com [301] [192.0.78.224] [Nginx]
+https://etslive-server.vidio.com [403] [34.117.26.33] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://ets-dashboard.vidio.com [302] [34.160.129.207] [HTTP/3]
+
+https://gandiwa.prod.vidio.com [302] [35.190.31.252] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://ets-dashboard.staging.vidio.com': GET http://ets-dashboard.staging.vidio.com giving up after 1 attempts: Get "http://ets-dashboard.staging.vidio.com": EOF
+
+[DBG] Failed 'http://chatbot-api.staging.vidio.com': GET http://chatbot-api.staging.vidio.com giving up after 1 attempts: Get "http://chatbot-api.staging.vidio.com": EOF
+
+[DBG] Failed 'http://chat.vidio.com': GET http://chat.vidio.com giving up after 1 attempts: Get "http://chat.vidio.com": EOF
+
+https://ets-subtitle-generator-api.vidio.com [403] [35.244.131.47] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://gandiwa.staging.vidio.com': GET http://gandiwa.staging.vidio.com giving up after 1 attempts: Get "http://gandiwa.staging.vidio.com": EOF
+
+[DBG] Failed 'http://hermes-cms.staging.vidio.com': GET http://hermes-cms.staging.vidio.com giving up after 1 attempts: Get "http://hermes-cms.staging.vidio.com": EOF
+
+https://hgktpzzg3r0e.vidio.com [403] [35.227.198.227] [HTTP/3]
+
+[DBG] Failed 'http://etslive-server.staging.vidio.com': GET http://etslive-server.staging.vidio.com giving up after 1 attempts: Get "http://etslive-server.staging.vidio.com": EOF
+
+https://hermes.vidio.com [404] [34.117.241.252] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://hermes.staging.vidio.com': GET http://hermes.staging.vidio.com giving up after 1 attempts: Get "http://hermes.staging.vidio.com": EOF
+
+https://iap.api.staging.vidio.com [302] [35.241.18.33] [HTTP/3]
+https://gmvpwepkj3.int.vidio.com [200] [34.107.223.52] [HTTP/3]
+
+[DBG] Failed 'http://cxvpemlvbgo-origin-quiz-ion.int.vidio.com': Get "http://cxvpemlvbgo-origin-quiz-ion.int.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://bbm.int.vidio.com': GET http://bbm.int.vidio.com giving up after 1 attempts: Get "http://bbm.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://audiostreamserver.vidio.com': GET http://audiostreamserver.vidio.com giving up after 1 attempts: Get "http://audiostreamserver.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://cdn-a-catchup.origin.int.vidio.com': GET http://cdn-a-catchup.origin.int.vidio.com giving up after 1 attempts: Get "http://cdn-a-catchup.origin.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://api-docs.staging.vidio.com': GET http://api-docs.staging.vidio.com giving up after 1 attempts: Get "http://api-docs.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://audiostreamserver-staging.vidio.com': GET http://audiostreamserver-staging.vidio.com giving up after 1 attempts: Get "http://audiostreamserver-staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://chat-platform.int.vidio.com': GET http://chat-platform.int.vidio.com giving up after 1 attempts: Get "http://chat-platform.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://api-doc.vidio.com': GET http://api-doc.vidio.com giving up after 1 attempts: Get "http://api-doc.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://api.iap.staging.vidio.com': GET http://api.iap.staging.vidio.com giving up after 1 attempts: Get "http://api.iap.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://app-etslive-2.int.vidio.com': GET http://app-etslive-2.int.vidio.com giving up after 1 attempts: Get "http://app-etslive-2.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://app.staging.vidio.com': GET http://app.staging.vidio.com giving up after 1 attempts: Get "http://app.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://01tto88sm58k5.int.vidio.com': GET http://01tto88sm58k5.int.vidio.com giving up after 1 attempts: Get "http://01tto88sm58k5.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://chat.int.vidio.com': GET http://chat.int.vidio.com giving up after 1 attempts: Get "http://chat.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://app-etslive-2.vidio.com': GET http://app-etslive-2.vidio.com giving up after 1 attempts: Get "http://app-etslive-2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://app-etslive.int.vidio.com': GET http://app-etslive.int.vidio.com giving up after 1 attempts: Get "http://app-etslive.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://dashboard-ets.int.vidio.com': GET http://dashboard-ets.int.vidio.com giving up after 1 attempts: Get "http://dashboard-ets.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://cdn-a-etslive.origin.int.vidio.com': GET http://cdn-a-etslive.origin.int.vidio.com giving up after 1 attempts: Get "http://cdn-a-etslive.origin.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://bein1.live.vidio.com': GET http://bein1.live.vidio.com giving up after 1 attempts: Get "http://bein1.live.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://bein3.live.vidio.com': GET http://bein3.live.vidio.com giving up after 1 attempts: Get "http://bein3.live.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://bein2.live.vidio.com': GET http://bein2.live.vidio.com giving up after 1 attempts: Get "http://bein2.live.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://bbm.vidio.com': GET http://bbm.vidio.com giving up after 1 attempts: Get "http://bbm.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://bbm.staging.vidio.com': GET http://bbm.staging.vidio.com giving up after 1 attempts: Get "http://bbm.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://img.email2.vidio.com [301] [104.17.156.243] [Cloudflare]
+
+https://img.email3.vidio.com [301] [104.17.158.243] [Cloudflare]
+
+[DBG] Failed 'http://hoppscotch.staging.vidio.com': GET http://hoppscotch.staging.vidio.com giving up after 1 attempts: Get "http://hoppscotch.staging.vidio.com": EOF
+
+https://inside.vidio.com [302] [142.250.184.211]
+
+https://iap.staging.vidio.com [302] [35.241.18.33] [HTTP/3]
+
+https://img.email1.vidio.com [301] [104.17.155.243] [Cloudflare]
+
+https://kpi.vidio.com [302] [142.250.184.211]
+
+http://gandiwa.canary.prod.vidio.com [502] [34.120.198.254]
+
+[DBG] Failed 'http://lasjk21bda21-tv-dsa.staging.vidio.com': GET http://lasjk21bda21-tv-dsa.staging.vidio.com giving up after 1 attempts: Get "http://lasjk21bda21-tv-dsa.staging.vidio.com": EOF
+
+https://iso.vidio.com [302] [34.49.22.44] [HTTP/3]
+
+https://lite.staging.vidio.com [502] [35.190.83.167] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://hydra.staging.vidio.com': GET http://hydra.staging.vidio.com giving up after 1 attempts: Get "http://hydra.staging.vidio.com": EOF
+
+https://link.promo.vidio.com [404] [34.36.107.183] [Google Cloud,Google Cloud CDN,HTTP/3,Nginx]
+
+[DBG] Failed 'http://fddkim.vidio.com': Get "http://fddkim.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://m.dev.vidio.com': GET http://m.dev.vidio.com giving up after 1 attempts: Get "http://m.dev.vidio.com": EOF
+
+https://int.vidio.com [302] [35.241.18.33] [HTTP/3]
+
+[DBG] Failed 'http://license.staging.vidio.com': GET http://license.staging.vidio.com giving up after 1 attempts: Get "http://license.staging.vidio.com": EOF
+
+https://livestreaming-fashion.vidio.com [403] [115.164.13.243]
+
+https://livestreaming-swiftserve-etslive.vidio.com [403] [115.164.13.243]
+
+https://m.int.vidio.com [302] [35.241.18.33] [HTTP/3]
+
+[DBG] Failed 'http://live.staging.vidio.com': GET http://live.staging.vidio.com giving up after 1 attempts: Get "http://live.staging.vidio.com": EOF
+
+https://m.iap.staging.vidio.com [302] [35.241.18.33] [HTTP/3]
+
+https://live.vidio.com [404] [34.120.25.176] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://dynlink.staging.vidio.com': GET http://dynlink.staging.vidio.com giving up after 1 attempts: Get "http://dynlink.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://kmm.docs.vidio.com': GET http://kmm.docs.vidio.com giving up after 1 attempts: Get "http://kmm.docs.vidio.com": EOF
+
+[DBG] Failed 'http://iso.staging.vidio.com': GET http://iso.staging.vidio.com giving up after 1 attempts: Get "http://iso.staging.vidio.com": EOF
+
+https://livestreaming-etslive.vidio.com [403] [122.11.168.9]
+
+[DBG] Failed 'http://email1.vidio.com': GET http://email1.vidio.com giving up after 1 attempts: Get "http://email1.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://indosat.staging.vidio.com [404] [34.120.27.3] [Google Cloud,Google Cloud CDN,Google Cloud Trace,HTTP/3]
+
+[DBG] Failed 'http://email2.vidio.com': GET http://email2.vidio.com giving up after 1 attempts: Get "http://email2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://lite.vidio.com [301] [34.120.218.177] [HTTP/3]
+
+https://jifoer83jfei03.vidio.com [200] [35.186.224.174] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://m.vidio.com [200] [23.48.23.191] [Nginx,Ruby,Ruby on Rails,Stimulus,jQuery]
+
+[DBG] Failed 'http://email3.vidio.com': GET http://email3.vidio.com giving up after 1 attempts: Get "http://email3.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://gandiwa-gke.staging.vidio.com': GET http://gandiwa-gke.staging.vidio.com giving up after 1 attempts: Get "http://gandiwa-gke.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://etsdrm-trolld.int.vidio.com': GET http://etsdrm-trolld.int.vidio.com giving up after 1 attempts: Get "http://etsdrm-trolld.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://etslive-app.staging.vidio.com': GET http://etslive-app.staging.vidio.com giving up after 1 attempts: Get "http://etslive-app.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://llhls.staging.vidio.com': GET http://llhls.staging.vidio.com giving up after 1 attempts: Get "http://llhls.staging.vidio.com": EOF
+
+https://next.vidio.com [302] [34.149.73.14] [HTTP/3]
+
+https://ocs-inventory.vidio.com [403] [35.190.91.99] [HTTP/3]
+
+https://media.origin.dev.vidio.com [404] [34.95.72.198] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://etslive.int.vidio.com': GET http://etslive.int.vidio.com giving up after 1 attempts: Get "http://etslive.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://ovm.staging.vidio.com [502] [34.117.233.20] [HSTS,HTTP/3]
+
+[DBG] Failed 'http://fashion.live.vidio.com': GET http://fashion.live.vidio.com giving up after 1 attempts: Get "http://fashion.live.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://feyiweiwooch-origin.staging.vidio.com': GET http://feyiweiwooch-origin.staging.vidio.com giving up after 1 attempts: Get "http://feyiweiwooch-origin.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://fnfuwafjqpeej.int.vidio.com': GET http://fnfuwafjqpeej.int.vidio.com giving up after 1 attempts: Get "http://fnfuwafjqpeej.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://fnfuwafjqptot.int.vidio.com': GET http://fnfuwafjqptot.int.vidio.com giving up after 1 attempts: Get "http://fnfuwafjqptot.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://gandiwa-gke.int.vidio.com': Get "http://gandiwa-gke.int.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://next.staging.vidio.com': GET http://next.staging.vidio.com giving up after 1 attempts: Get "http://next.staging.vidio.com": EOF
+
+[DBG] Failed 'http://gandiwa-int.vidio.com': GET http://gandiwa-int.vidio.com giving up after 1 attempts: Get "http://gandiwa-int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://license.vidio.com [503] [34.110.165.83] [Amazon CloudFront,Amazon ELB,Amazon Web Services,Envoy,HTTP/3]
+
+https://ongi9angbeef5iw8-tv-dsa.vidio.com [404] [34.36.193.7] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://gcs-etslive.int.vidio.com': Get "http://gcs-etslive.int.vidio.com": errKind=network-permanent-error no address found for host
+
+https://personalization.int.vidio.com [403] [23.50.131.24] [HTTP/3]
+
+https://psug4xogrt.int.vidio.com [403] [35.190.23.193] [HTTP/3]
+
+[DBG] Failed 'http://gandiwa.vidio.com': GET http://gandiwa.vidio.com giving up after 1 attempts: Get "http://gandiwa.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://posthog-staging.vidio.com [502] [34.120.57.123] [HTTP/3]
+
+[DBG] Failed 'http://gcp.staging.vidio.com': GET http://gcp.staging.vidio.com giving up after 1 attempts: Get "http://gcp.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://m.staging.vidio.com [200] [35.190.83.167] [Google Cloud,Google Cloud CDN,Google Cloud Storage,Google Tag Manager,HTTP/3]
+
+https://jjndi0k9m2.int.vidio.com [200] [34.117.162.195] [HTTP/3]
+
+https://quiz.vidio.com [403] [104.22.5.240] [Cloudflare,HTTP/3]
+
+https://quiz.staging.vidio.com [403] [104.20.244.135] [Cloudflare,HTTP/3]
+
+https://r.email1.vidio.com [301] [1.179.112.195] [Nginx]
+
+https://r.email3.vidio.com [301] [1.179.112.197] [Nginx]
+
+http://quiz.int.vidio.com [520] [172.67.5.14] [Cloudflare,HTTP/3]
+
+https://plenty.vidio.com [404] [34.111.228.151] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://scm-iso.staging.vidio.com': GET http://scm-iso.staging.vidio.com giving up after 1 attempts: Get "http://scm-iso.staging.vidio.com": EOF
+
+https://r.email2.vidio.com [301] [1.179.112.196] [Nginx]
+
+http://personalization.vidio.com [403] [23.50.131.31]
+
+https://staging.vidio.com [302] [35.190.83.167] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+https://peehain1ee.vidio.com [200] [34.107.135.0] [HTTP/3]
+
+https://scm-iso.vidio.com [302] [34.120.17.79] [HTTP/3]
+
+[DBG] Failed 'http://indosat.vidio.com': GET http://indosat.vidio.com giving up after 1 attempts: Get "http://indosat.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://staging-plenty.vidio.com': GET http://staging-plenty.vidio.com giving up after 1 attempts: Get "http://staging-plenty.vidio.com": EOF
+
+[DBG] Failed 'http://livestreaming-ets.vidio.com': Get "http://livestreaming-ets.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://livestreaming-google-etslive.int.vidio.com': Get "http://livestreaming-google-etslive.int.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://lgtxnzg11tc98.int.vidio.com': GET http://lgtxnzg11tc98.int.vidio.com giving up after 1 attempts: Get "http://lgtxnzg11tc98.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://linkage.staging.vidio.com': GET http://linkage.staging.vidio.com giving up after 1 attempts: Get "http://linkage.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://liachu2feir7oiqu-tv-dsa.int.vidio.com': GET http://liachu2feir7oiqu-tv-dsa.int.vidio.com giving up after 1 attempts: Get "http://liachu2feir7oiqu-tv-dsa.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://live.prod.vidio.com': GET http://live.prod.vidio.com giving up after 1 attempts: Get "http://live.prod.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://live.int.vidio.com': GET http://live.int.vidio.com giving up after 1 attempts: Get "http://live.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://static-quiz.origin.int.vidio.com [404] [34.95.85.215] [Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://m.blog.vidio.com': GET http://m.blog.vidio.com giving up after 1 attempts: Get "http://m.blog.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://livestreaming-swiftserve-etslive-staging.vidio.com': GET http://livestreaming-swiftserve-etslive-staging.vidio.com giving up after 1 attempts: Get "http://livestreaming-swiftserve-etslive-staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://m.staging-2.vidio.com': Get "http://m.staging-2.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://m2.vidio.com': Get "http://m2.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://mail2.vidio.com': GET http://mail2.vidio.com giving up after 1 attempts: Get "http://mail2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://m.test.staging.vidio.com': GET http://m.test.staging.vidio.com giving up after 1 attempts: Get "http://m.test.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://mail3.vidio.com': Get "http://mail3.vidio.com": errKind=network-permanent-error no address found for host
+
+https://support.vidio.com [302] [50.16.189.159] [Amazon S3,Amazon Web Services,Envoy,HSTS]
+
+https://telkomsel.vidio.com [404] [34.117.180.47] [Google Cloud,Google Cloud CDN,Google Cloud Trace,HTTP/3]
+
+[DBG] Failed 'http://m3.vidio.com': GET http://m3.vidio.com giving up after 1 attempts: Get "http://m3.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://mail5.vidio.com': GET http://mail5.vidio.com giving up after 1 attempts: Get "http://mail5.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://stickers.vidio.com [301] [23.50.131.22] [HTTP/3]
+[DBG] Failed 'http://mail.vidio.com': GET http://mail.vidio.com giving up after 1 attempts: Get "http://mail.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://static03.staging.vidio.com [403] [34.98.97.95] [HTTP/3]
+
+[DBG] Failed 'http://mail4.vidio.com': GET http://mail4.vidio.com giving up after 1 attempts: Get "http://mail4.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://media.origin.int.vidio.com': GET http://media.origin.int.vidio.com giving up after 1 attempts: Get "http://media.origin.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://ongi9angbeef5iw8-tv-canary-vpn-dsa.vidio.com': Get "http://ongi9angbeef5iw8-tv-canary-vpn-dsa.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://media.origin.prod.vidio.com': GET http://media.origin.prod.vidio.com giving up after 1 attempts: Get "http://media.origin.prod.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://next.iap.staging.vidio.com': GET http://next.iap.staging.vidio.com giving up after 1 attempts: Get "http://next.iap.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://o539.em.promo.vidio.com': GET http://o539.em.promo.vidio.com giving up after 1 attempts: Get "http://o539.em.promo.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://ongi9angbeef5iw8-tv-canary-dsa.vidio.com': GET http://ongi9angbeef5iw8-tv-canary-dsa.vidio.com giving up after 1 attempts: Get "http://ongi9angbeef5iw8-tv-canary-dsa.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://thumbor-gke.dev.vidio.com': GET http://thumbor-gke.dev.vidio.com giving up after 1 attempts: Get "http://thumbor-gke.dev.vidio.com": EOF
+
+[DBG] Failed 'http://quiz-gcp.vidio.com': Get "http://quiz-gcp.vidio.com": errKind=network-permanent-error no address found for host
+
+https://static02.staging.vidio.com [403] [35.244.184.31] [HTTP/3]
+
+[DBG] Failed 'http://prod-sec.dev.vidio.com': GET http://prod-sec.dev.vidio.com giving up after 1 attempts: Get "http://prod-sec.dev.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://quiz-ion.vidio.com': Get "http://quiz-ion.vidio.com": errKind=network-permanent-error no address found for host
+
+https://tskpzjxrv.vidio.com [403] [34.107.137.43] [HTTP/3]
+
+[DBG] Failed 'http://reportportal.int.vidio.com': Get "http://reportportal.int.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://tv-gke.staging.vidio.com': GET http://tv-gke.staging.vidio.com giving up after 1 attempts: Get "http://tv-gke.staging.vidio.com": EOF
+
+[DBG] Failed 'http://thumbor-gke.staging.vidio.com': GET http://thumbor-gke.staging.vidio.com giving up after 1 attempts: Get "http://thumbor-gke.staging.vidio.com": EOF
+
+[DBG] Failed 'http://tmbubjryhvewc-origin-quiz-staging.vidio.com': GET http://tmbubjryhvewc-origin-quiz-staging.vidio.com giving up after 1 attempts: Get "http://tmbubjryhvewc-origin-quiz-staging.vidio.com": EOF
+
+[DBG] Failed 'http://r.mail.vidio.com': GET http://r.mail.vidio.com giving up after 1 attempts: Get "http://r.mail.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://quicksilver.staging.vidio.com': GET http://quicksilver.staging.vidio.com giving up after 1 attempts: Get "http://quicksilver.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://quiz-gcp.int.vidio.com': GET http://quiz-gcp.int.vidio.com giving up after 1 attempts: Get "http://quiz-gcp.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://telkomsel.staging.vidio.com [404] [34.120.27.3] [Google Cloud,Google Cloud CDN,Google Cloud Trace,HTTP/3]
+
+http://static-origin.dev.vidio.com [301] [34.96.79.191]
+
+[DBG] Failed 'http://quiz-ion.int.vidio.com': GET http://quiz-ion.int.vidio.com giving up after 1 attempts: Get "http://quiz-ion.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://quiz.int.ion.vidio.com': GET http://quiz.int.ion.vidio.com giving up after 1 attempts: Get "http://quiz.int.ion.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://r.mail4.vidio.com': GET http://r.mail4.vidio.com giving up after 1 attempts: Get "http://r.mail4.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://tee3ahl2ch.vidio.com [403] [35.244.220.18] [HTTP/3]
+[DBG] Failed 'http://r.mail3.vidio.com': GET http://r.mail3.vidio.com giving up after 1 attempts: Get "http://r.mail3.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://r.mail1.vidio.com': Get "http://r.mail1.vidio.com": errKind=network-permanent-error no address found for host
+
+https://thumbor-gke.prod.vidio.com [400] [35.186.232.49] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3,Nginx]
+
+[DBG] Failed 'http://staging-quiz.vidio.com': Get "http://staging-quiz.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://r.mail2.vidio.com': GET http://r.mail2.vidio.com giving up after 1 attempts: Get "http://r.mail2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://r.mail5.vidio.com': GET http://r.mail5.vidio.com giving up after 1 attempts: Get "http://r.mail5.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://vidio-media-interopt.int.vidio.com': GET http://vidio-media-interopt.int.vidio.com giving up after 1 attempts: Get "http://vidio-media-interopt.int.vidio.com": EOF
+
+[DBG] Failed 'http://wp.staging.vidio.com': GET http://wp.staging.vidio.com giving up after 1 attempts: Get "http://wp.staging.vidio.com": EOF
+
+https://vidio.com [301] [18.245.31.60] [Amazon CloudFront,Amazon Web Services]
+
+https://tv.staging.vidio.com [503] [23.48.23.169]
+https://www-dsa.staging.vidio.com [302] [23.48.23.166]
+
+[DBG] Failed 'http://staging-ocs.vidio.com': Get "http://staging-ocs.vidio.com": errKind=network-permanent-error no address found for host
+
+https://w3hh46zt.staging.vidio.com [502] [34.117.25.214] [HTTP/3]
+
+https://whisper.vidio.com [404] [34.160.82.127] [Envoy,Google Cloud,Google Cloud CDN,HTTP/3]
+
+[DBG] Failed 'http://www.dev.vidio.com': GET http://www.dev.vidio.com giving up after 1 attempts: Get "http://www.dev.vidio.com": EOF
+
+[DBG] Failed 'http://whisper.staging.vidio.com': GET http://whisper.staging.vidio.com giving up after 1 attempts: Get "http://whisper.staging.vidio.com": EOF
+
+[DBG] Failed 'http://staging-2.vidio.com': GET http://staging-2.vidio.com giving up after 1 attempts: Get "http://staging-2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://site.vidio.com': GET http://site.vidio.com giving up after 1 attempts: Get "http://site.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://www.about.vidio.com [301] [192.0.78.158] [HSTS,HTTP/3,Nginx]
+
+https://tv.alpha.vidio.com [200] [23.48.23.177] [Cloudflare,Crazy Egg,Envoy,Google Hosted Libraries,Google Publisher Tag,Nginx,cdnjs,jQuery]
+
+https://vidio-web-prod-media-001-lb.vidio.com [403] [35.186.228.30] [HTTP/3]
+
+[DBG] Failed 'http://staging.careers.vidio.com': GET http://staging.careers.vidio.com giving up after 1 attempts: Get "http://staging.careers.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://stagingv2-plenty.vidio.com': GET http://stagingv2-plenty.vidio.com giving up after 1 attempts: Get "http://stagingv2-plenty.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://www.iap.staging.vidio.com [302] [35.241.18.33] [HTTP/3]
+
+https://www.staging.vidio.com [200] [35.190.83.167] [Google Cloud,Google Cloud CDN,Google Cloud Storage,Google Tag Manager,HTTP/3]
+
+http://tst-aqcdqr1234.staging.vidio.com [301] [34.107.198.29]
+
+[DBG] Failed 'http://static-origin.staging.vidio.com': Get "http://static-origin.staging.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://static-playback.origin.vidio.com': Get "http://static-playback.origin.vidio.com": errKind=network-permanent-error no address found for host
+
+https://yz3nq6kn0m.int.vidio.com [403] [35.244.184.31] [HTTP/3]
+
+https://tv.vidio.com [200] [23.48.23.183] [Cloudflare,Crazy Egg,Envoy,Google Hosted Libraries,Google Publisher Tag,Nginx,cdnjs,jQuery]
+
+[DBG] Failed 'http://static-playback.origin.int.vidio.com': GET http://static-playback.origin.int.vidio.com giving up after 1 attempts: Get "http://static-playback.origin.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://static-quiz.origin.vidio.com': GET http://static-quiz.origin.vidio.com giving up after 1 attempts: Get "http://static-quiz.origin.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+https://zxzvfjqrpw.vidio.com [403] [34.120.72.124] [HTTP/3]
+https://www.vidio.com [200] [23.48.23.156] [Google Tag Manager,Integral Ad Science,Nginx,Ruby,Ruby on Rails,Stimulus]
+
+[DBG] Failed 'http://static-thumbor-aws.origin.int.vidio.com': GET http://static-thumbor-aws.origin.int.vidio.com giving up after 1 attempts: Get "http://static-thumbor-aws.origin.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://static-thumbor-aws.origin.vidio.com': GET http://static-thumbor-aws.origin.vidio.com giving up after 1 attempts: Get "http://static-thumbor-aws.origin.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://test.staging.vidio.com': Get "http://test.staging.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://testafkns.staging.vidio.com': GET http://testafkns.staging.vidio.com giving up after 1 attempts: Get "http://testafkns.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-canary-vpn.vidio.com': Get "http://tv-canary-vpn.vidio.com": errKind=network-permanent-error no address found for host
+
+[DBG] Failed 'http://thumbor-aws.origin.vidio.com': GET http://thumbor-aws.origin.vidio.com giving up after 1 attempts: Get "http://thumbor-aws.origin.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://thumbor-aws.int.vidio.com': GET http://thumbor-aws.int.vidio.com giving up after 1 attempts: Get "http://thumbor-aws.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://thumbor-aws.origin.int.vidio.com': GET http://thumbor-aws.origin.int.vidio.com giving up after 1 attempts: Get "http://thumbor-aws.origin.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-canary.int.vidio.com': GET http://tv-canary.int.vidio.com giving up after 1 attempts: Get "http://tv-canary.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://thumbor-gke.int.vidio.com': GET http://thumbor-gke.int.vidio.com giving up after 1 attempts: Get "http://thumbor-gke.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://thumbor.dev.vidio.com': GET http://thumbor.dev.vidio.com giving up after 1 attempts: Get "http://thumbor.dev.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://thumbor.int.vidio.com': GET http://thumbor.int.vidio.com giving up after 1 attempts: Get "http://thumbor.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-canary.vidio.com': GET http://tv-canary.vidio.com giving up after 1 attempts: Get "http://tv-canary.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-int-internal.vidio.com': GET http://tv-int-internal.vidio.com giving up after 1 attempts: Get "http://tv-int-internal.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-int.vidio.com': GET http://tv-int.vidio.com giving up after 1 attempts: Get "http://tv-int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-internal-vpn.vidio.com': GET http://tv-internal-vpn.vidio.com giving up after 1 attempts: Get "http://tv-internal-vpn.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv-internal.vidio.com': GET http://tv-internal.vidio.com giving up after 1 attempts: Get "http://tv-internal.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://tv.int.vidio.com': GET http://tv.int.vidio.com giving up after 1 attempts: Get "http://tv.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://web-etslive.int.vidio.com': GET http://web-etslive.int.vidio.com giving up after 1 attempts: Get "http://web-etslive.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://whisper-web-server.staging.vidio.com': GET http://whisper-web-server.staging.vidio.com giving up after 1 attempts: Get "http://whisper-web-server.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www3.vidio.com': GET http://www3.vidio.com giving up after 1 attempts: Get "http://www3.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www-dsa.vidio.com': GET http://www-dsa.vidio.com giving up after 1 attempts: Get "http://www-dsa.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www.blog.vidio.com': GET http://www.blog.vidio.com giving up after 1 attempts: Get "http://www.blog.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www.indosat.vidio.com': GET http://www.indosat.vidio.com giving up after 1 attempts: Get "http://www.indosat.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www.int.vidio.com': GET http://www.int.vidio.com giving up after 1 attempts: Get "http://www.int.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+[
+DBG] Failed 'http://www.telkomsel.vidio.com': GET http://www.telkomsel.vidio.com giving up after 1 attempts: Get "http://www.telkomsel.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www.staging-2.vidio.com': GET http://www.staging-2.vidio.com giving up after 1 attempts: Get "http://www.staging-2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www.test.staging.vidio.com': GET http://www.test.staging.vidio.com giving up after 1 attempts: Get "http://www.test.staging.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://www2.vidio.com': GET http://www2.vidio.com giving up after 1 attempts: Get "http://www2.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+[DBG] Failed 'http://znjjprwzgeyyp.vidio.com': GET http://znjjprwzgeyyp.vidio.com giving up after 1 attempts: Get "http://znjjprwzgeyyp.vidio.com": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
