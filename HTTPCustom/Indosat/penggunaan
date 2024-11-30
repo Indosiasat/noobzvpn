@@ -1,0 +1,11 @@
+CATATAN: Gunakan SSH masing-masing
+ada dua mode dalam konfigurasi ini
+
+REVERSE SNI
+jangan centang SSL
+
+SNI
+hapus proxy / kosongkan
+
+import cloud config, contoh indosat apps fun
+https://raw.githubusercontent.com/Indosiasat/Config/refs/heads/main/HTTPCustom/Indosat/appsfun.hc
