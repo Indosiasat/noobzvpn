@@ -46,7 +46,7 @@ proxies:
     ws-opts:
       path: /
       headers:
-        Host: sg5.wish.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 2"
     server: img.email3.vidio.com
@@ -62,7 +62,7 @@ proxies:
     ws-opts:
       path: /
       headers:
-        Host: img.email3.vidio.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 3"
     server: img.email2.vidio.com
