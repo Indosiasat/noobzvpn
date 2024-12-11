@@ -97,7 +97,7 @@ proxies:
         Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 5"
-    server: sg5.wish.ml
+    server: call.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -105,15 +105,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: call.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: call.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 6"
-    server: sg5.wish.ml
+    server: www.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -121,15 +121,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: www.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: www.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 7"
-    server: sg5.wish.ml
+    server: maritime.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -137,15 +137,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: maritime.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: maritime.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 8"
-    server: sg5.wish.ml
+    server: abogado.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -153,15 +153,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: abogado.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: abogado.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 9"
-    server: sg5.wish.ml
+    server: quiz.vidio.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -169,15 +169,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: quiz.vidio.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: quiz.vidio.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 10"
-    server: sg5.wish.ml
+    server: lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -185,15 +185,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 11"
-    server: sg5.wish.ml
+    server: quiz.int.vidio.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -201,15 +201,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: quiz.int.vidio.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: quiz.int.vidio.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 12"
-    server: sg5.wish.ml
+    server: clients.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -217,15 +217,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: clients.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: clients.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 13"
-    server: sg5.wish.ml
+    server: hurricane.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -233,15 +233,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: hurricane.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: hurricane.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 14"
-    server: sg5.wish.ml
+    server: win.lipcon.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -249,15 +249,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: win.lipcon.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: win.lipcon.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 15"
-    server: sg5.wish.ml
+    server: 172.67.5.14
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -265,15 +265,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: 172.67.5.14
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: 172.67.5.14
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 16"
-    server: sg5.wish.ml
+    server: 104.22.5.240
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -281,15 +281,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: 104.22.5.240
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: 104.22.5.240
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 17"
-    server: sg5.wish.ml
+    server: 104.22.4.240
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -297,15 +297,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: 104.22.4.240
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: 104.22.4.240
+        Host: sg5.wish.ml
     udp: true
 proxy-groups:
-  - name: FASTSSH-SSHKIT-HOWDY
+  - name: noobzvpn
     type: select
     proxies:
       - "[VMess] 🇸🇬 sg m1 limited"
