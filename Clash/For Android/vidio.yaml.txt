@@ -52549,4 +52549,4 @@ rules:
  - DOMAIN,'+.zzyonghao.com',REJECT
  - DOMAIN,'+.zzznews.ru',REJECT
  - DOMAIN,'+.zzzrtrcm2.com',REJECT
- - MATCH,FASTSSH-SSHKIT-HOWDY
+ - MATCH,noobzvpn
