@@ -33,7 +33,7 @@ dns:
     - 112.215.203.254
 proxies:
   - name: "[VMess] 🇸🇬 sg m1 limited"
-    server: sg5.wish.ml
+    server: nontontv.vidio.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -41,12 +41,12 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: nontontv.vidio.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: nontontv.vidio.com
+        Host: sg5.wish.com
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 2"
     server: sg5.wish.ml
