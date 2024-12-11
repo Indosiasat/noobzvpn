@@ -49,7 +49,7 @@ proxies:
         Host: sg5.wish.com
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 2"
-    server: sg5.wish.ml
+    server: img.email3.vidio.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -57,7 +57,7 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: img.email3.vidio.com
+    servername: 
     network: ws
     ws-opts:
       path: /
@@ -65,7 +65,7 @@ proxies:
         Host: img.email3.vidio.com
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 3"
-    server: sg5.wish.ml
+    server: img.email2.vidio.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -73,15 +73,15 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: img.email2.vidio.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: img.email2.vidio.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 4"
-    server: sg5.wish.ml
+    server: img.email1.vidio.com
     port: 2052
     type: vmess
     uuid: 7d417084-d308-4b35-96c8-99dfb2547ec2
@@ -89,12 +89,12 @@ proxies:
     cipher: auto
     tls: false
     skip-cert-verify: true
-    servername: img.email1.vidio.com
+    servername: 
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: img.email1.vidio.com
+        Host: sg5.wish.ml
     udp: true
   - name: "[VMess] 🇸🇬 sg m1 limited 5"
     server: sg5.wish.ml
