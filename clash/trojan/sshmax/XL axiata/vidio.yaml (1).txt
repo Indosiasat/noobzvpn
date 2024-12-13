@@ -111,14 +111,14 @@ proxies:
         Host: us1.trojanvpn.xyz
     udp: true
 proxy-groups:
-  - name: FASTSSH-SSHKIT-HOWDY
+  - name: NOOBZVPN-FAMILY
     type: select
     proxies:
       - "[Trojan] 🇫🇷 france"
       - "[Trojan] 🇮🇸 iceland"
       - "[Trojan] 🇮🇪 ireland"
       - "[Trojan] 🇩🇪 germany"
-      - "[Trojan] 🇩🇪 nederland"
+      - "[Trojan] 🇳🇱 nederland"
       - "[Trojan] 🇬🇧 united kingdom"
       - "[Trojan] 🇺🇸 united states"
       - LOAD-BALANCE
