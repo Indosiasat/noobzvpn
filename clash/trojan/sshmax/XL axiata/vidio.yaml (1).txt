@@ -19,7 +19,7 @@ dns:
     - 1.0.0.1
     - https://cloudflare-dns.com/dns-query
 proxies:
-  - name: "[Trojan] france"
+  - name: "[Trojan] 🇫🇷 france"
     server: quiz.vidio.com
     port: 443
     type: trojan
@@ -32,7 +32,7 @@ proxies:
       headers:
         Host: fr1.trojanvpn.xyz
     udp: true
-  - name: "[Trojan] iceland"
+  - name: "[Trojan] 🇮🇸 iceland"
     server: quiz.vidio.com
     port: 443
     type: trojan
@@ -45,7 +45,7 @@ proxies:
       headers:
         Host: is1.trojanvpn.xyz
     udp: true
-  - name: "[Trojan] ireland"
+  - name: "[Trojan] 🇮🇪 ireland"
     server: quiz.vidio.com
     port: 443
     type: trojan
@@ -71,7 +71,7 @@ proxies:
       headers:
         Host: de1.trojanvpn.xyz
     udp: true
-  - name: "[Trojan] 🇩🇪 nederland"
+  - name: "[Trojan] 🇳🇱 nederland"
     server: quiz.vidio.com
     port: 443
     type: trojan
@@ -114,9 +114,9 @@ proxy-groups:
   - name: FASTSSH-SSHKIT-HOWDY
     type: select
     proxies:
-      - "[Trojan] france"
-      - "[Trojan] iceland"
-      - "[Trojan] ireland"
+      - "[Trojan] 🇫🇷 france"
+      - "[Trojan] 🇮🇸 iceland"
+      - "[Trojan] 🇮🇪 ireland"
       - "[Trojan] 🇩🇪 germany"
       - "[Trojan] 🇩🇪 nederland"
       - "[Trojan] 🇬🇧 united kingdom"
@@ -131,11 +131,11 @@ proxy-groups:
     url: http://hi.bonds.id/ping
     interval: 300
     proxies:
-      - "[Trojan] france"
-      - "[Trojan] iceland"
-      - "[Trojan] ireland"
+      - "[Trojan] 🇫🇷 france"
+      - "[Trojan] 🇮🇸 iceland"
+      - "[Trojan] 🇮🇪 ireland"
       - "[Trojan] 🇩🇪 germany"
-      - "[Trojan] 🇩🇪 nederland"
+      - "[Trojan] 🇳🇱 nederland"
       - "[Trojan] 🇬🇧 united kingdom"
       - "[Trojan] 🇺🇸 united states"
   - name: BEST-PING
@@ -144,11 +144,11 @@ proxy-groups:
     interval: 300
     tolerance: 50
     proxies:
-      - "[Trojan] france"
-      - "[Trojan] iceland"
-      - "[Trojan] ireland"
+      - "[Trojan] 🇫🇷 france"
+      - "[Trojan] 🇮🇸 iceland"
+      - "[Trojan] 🇮🇪 ireland"
       - "[Trojan] 🇩🇪 germany"
-      - "[Trojan] 🇩🇪 nederland"
+      - "[Trojan] 🇳🇱 nederland"
       - "[Trojan] 🇬🇧 united kingdom"
       - "[Trojan] 🇺🇸 united states"
   - name: FALLBACK
@@ -156,11 +156,11 @@ proxy-groups:
     url: http://hi.bonds.id/ping
     interval: 300
     proxies:
-      - "[Trojan] france"
-      - "[Trojan] iceland"
-      - "[Trojan] ireland"
+      - "[Trojan] 🇫🇷 france"
+      - "[Trojan] 🇮🇸 iceland"
+      - "[Trojan] 🇮🇪 ireland"
       - "[Trojan] 🇩🇪 germany"
-      - "[Trojan] 🇩🇪 nederland"
+      - "[Trojan] 🇳🇱 nederland"
       - "[Trojan] 🇬🇧 united kingdom"
       - "[Trojan] 🇺🇸 united states"
 rules:
@@ -52315,4 +52315,4 @@ rules:
  - DOMAIN,'+.zzyonghao.com',REJECT
  - DOMAIN,'+.zzznews.ru',REJECT
  - DOMAIN,'+.zzzrtrcm2.com',REJECT
- - MATCH,FASTSSH-SSHKIT-HOWDY
+ - MATCH, NOOBZVPN-FAMILY
