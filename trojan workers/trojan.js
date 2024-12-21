@@ -4,7 +4,7 @@ import { connect } from "cloudflare:sockets";
 let Pswd = "trojan";
 const proxyIPs = ["herza.id"]; //ts.hpc.tw edgetunnel.anycast.eu.org bestproxy.onecf.eu.org cdn-all.xn--b6gac.eu.org cdn.xn--b6gac.eu.org proxy.xxxxxxxx.tk
 let cn_hostnames = [''];
-let CDNIP = 'www.visa.com.sg'
+let CDNIP = 'herza.id'
 // http_ip
 let IP1 = 'www.visa.com'
 let IP2 = 'cis.visa.com'
