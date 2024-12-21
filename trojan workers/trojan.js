@@ -589,8 +589,8 @@ ${displayHtml}
 			<table class="table">
 				<thead>
 					<tr>
-						<th>节点特色：</th>
-						<th>单节点链接如下：</th>
+						<th>Fitur simpul：</th>
+						<th>Tautan simpul tunggal adalah sebagai berikut：</th>
 					</tr>
 				</thead>
 				<tbody>
