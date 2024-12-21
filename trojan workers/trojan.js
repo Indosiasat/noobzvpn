@@ -564,7 +564,7 @@ function copyToClipboard(text) {
   input.select();
   document.execCommand('Copy');
   document.body.removeChild(input);
-  alert('已复制到剪贴板');
+  alert('Disalin ke CLIPBOARD');
 }
 </script>
 `;
@@ -595,7 +595,7 @@ ${displayHtml}
 				</thead>
 				<tbody>
 					<tr>
-						<td class="limited-width">关闭了TLS加密，无视域名阻断</td>
+						<td class="limited-width">Matikan enkripsi TLS，abaikan pemblokiran nama domain</td>
 						<td class="limited-width">${wtrojanws}</td>
 						<td><button class="btn btn-primary" onclick="copyToClipboard('${wtrojanws}')">点击复制链接</button></td>
 					</tr>
