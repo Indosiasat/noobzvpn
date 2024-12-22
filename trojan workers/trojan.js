@@ -597,14 +597,14 @@ ${displayHtml}
 					<tr>
 						<td class="limited-width">Matikan enkripsi TLS，abaikan pemblokiran nama domain</td>
 						<td class="limited-width">${wtrojanws}</td>
-						<td><button class="btn btn-primary" onclick="copyToClipboard('${wtrojanws}')">点击复制链接</button></td>
+						<td><button class="btn btn-primary" onclick="copyToClipboard('${wtrojanws}')">Klik untuk memyalin tautan</button></td>
 					</tr>
 				</tbody>
 			</table>
-            <h5>客户端参数如下：</h5>
+            <h5>Parameter klien adalah sebagai berikut：</h5>
             <ul>
-                <li>客户端地址(address)：自定义的域名 或者 优选域名 或者 优选IP 或者 反代IP</li>
-                <li>端口(port)：7个http端口可任意选择(80、8080、8880、2052、2082、2086、2095)，或反代IP对应端口</li>
+                <li>Alamat klien: Nama domain khusus atau nama domain pilihan atau IP pilihan atau IP terbalik</li>
+                <li>Port: 7 port http dapat dipilih secara sewenang-wenang (80, 8080, 8880, 2052, 2082, 2086, 2095), atau port IP terbalik yang sesuai</li>
                 <li>密码(password)：${Pswd}</li>
                 <li>传输协议(network)：ws 或者 websocket</li>
                 <li>伪装域名(host)：${hostName}</li>
