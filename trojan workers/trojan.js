@@ -609,7 +609,7 @@ ${displayHtml}
                 <li>Protocol transportasi(network)：ws atau websocket</li>
                 <li>Nama domain yang disamarkan(host)：${hostName}</li>
                 <li>Jalur(path)：/?ed=2560</li>
-                <li>Keamana transportasi(TLS)：mati</li>
+                <li>Keamanan transportasi(TLS)：mati</li>
             </ul>
             <hr>
 			<hr>
@@ -620,13 +620,13 @@ ${displayHtml}
 			<table class="table">
 				<thead>
 					<tr>
-						<th>节点特色：</th>
-						<th>单节点链接如下：</th>
+						<th>Fitur simpul：</th>
+						<th>Tautan simpul tunggal adalah sebagai berikut：</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="limited-width">启用了TLS加密，<br>如果客户端支持分片(Fragment)功能，建议开启，防止域名阻断</td>
+						<td class="limited-width">Enskripsi TLS diaktifkan，<br>jika klien mendukung fragmentasi，disarankan untuk mengaktifkannya，untuk mencegah pemblokiran nama domain</td>
 						<td class="limited-width">${ptrojanwstls}</td>	
 						<td><button class="btn btn-primary" onclick="copyToClipboard('${ptrojanwstls}')">点击复制链接</button></td>
 					</tr>
