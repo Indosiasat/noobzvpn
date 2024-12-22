@@ -637,10 +637,10 @@ ${displayHtml}
                 <li>Alamat klien: Nama domain khusus atau nama domain pilihan atau IP pilihan atau IP terbalik</li>
                 <li>Port: 6 port https dapat dipilih secara sewenang-wenang (443, 8443, 2053, 2083, 2087, 2096),</li>
                 <li>Kata sandi(password)：${Pswd}</li>
-                <li>Protokol transportasi(network)：ws 或者 websocket</li>
+                <li>Protokol transportasi(network)：ws atau websocket</li>
                 <li>Nama domain yang disamarkan(host)：${hostName}</li>
                 <li>Jalur(path)：/?ed=2560</li>
-                <li>Keamanan transportasi(TLS)：开启</li>
+                <li>Keamanan transportasi(TLS)：Aktif</li>
                 <li>Lewati sertifikat(allowlnsecure)：mati</li>
 			</ul>
 			<hr>
@@ -655,13 +655,13 @@ ${displayHtml}
 			<table class="table">
 					<thead>
 						<tr>
-							<th>聚合通用订阅链接：</th>
+							<th>Tautan berlangganan universal gabungan：</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td class="limited-width">${ty}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${ty}')">点击复制链接</button></td>
+							<td><button class="btn btn-primary" onclick="copyToClipboard('${ty}')">Klik untuk menyalin</button></td>
 						</tr>
 					</tbody>
 				</table>	
@@ -669,13 +669,13 @@ ${displayHtml}
 				<table class="table">
 						<thead>
 							<tr>
-								<th>Clash-meta订阅链接：</th>
+								<th>Tautan berlangganan Clash-meta：</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td class="limited-width">${cl}</td>	
-								<td><button class="btn btn-primary" onclick="copyToClipboard('${cl}')">点击复制链接</button></td>
+								<td><button class="btn btn-primary" onclick="copyToClipboard('${cl}')">Klik untuk menyalin</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -683,13 +683,13 @@ ${displayHtml}
 					<table class="table">
 					<thead>
 						<tr>
-							<th>Sing-box订阅链接：</th>
+							<th>Tautan berlangganan Sing-box：</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td class="limited-width">${sb}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${sb}')">点击复制链接</button></td>
+							<td><button class="btn btn-primary" onclick="copyToClipboard('${sb}')">Klik untuk menyalin</button></td>
 						</tr>
 					</tbody>
 				</table>
