@@ -605,11 +605,11 @@ ${displayHtml}
             <ul>
                 <li>Alamat klien: Nama domain khusus atau nama domain pilihan atau IP pilihan atau IP terbalik</li>
                 <li>Port: 7 port http dapat dipilih secara sewenang-wenang (80, 8080, 8880, 2052, 2082, 2086, 2095), atau port IP terbalik yang sesuai</li>
-                <li>密码(password)：${Pswd}</li>
-                <li>传输协议(network)：ws 或者 websocket</li>
-                <li>伪装域名(host)：${hostName}</li>
-                <li>路径(path)：/?ed=2560</li>
-                <li>传输安全(TLS)：关闭</li>
+                <li>Kata sandi：${Pswd}</li>
+                <li>Protocol transportasi(network)：ws atau websocket</li>
+                <li>Nama domain yang disamarkan(host)：${hostName}</li>
+                <li>Jalur(path)：/?ed=2560</li>
+                <li>Keamana transportasi(TLS)：mati</li>
             </ul>
             <hr>
 			<hr>
