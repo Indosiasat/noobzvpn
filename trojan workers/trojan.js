@@ -532,7 +532,7 @@ export { worker_default as default };
 function gettrojanConfig(Pswd, hostName) {
   const wtrojanws = atob(btoa(`trojan://${Pswd}@${CDNIP}:8880?security=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#${hostName}`));
   const ptrojanwstls = atob(btoa(`trojan://${Pswd}@${CDNIP}:8443?security=tls&type=ws&host=${hostName}&sni=${hostName}&fp=random&path=%2F%3Fed%3D2560#${hostName}`));
-  const note = `channel youtube：https://www.youtube.com/@ygkkk\nGrup Telegram：https://t.me/ygkkktg\nChannel Telegram：https://t.me/ygkkktgpd\n\nProxyIp berjalan secara global：${proxyIP}`;
+  const note = `Komunitasa Messengger：https://m.me/cm/AbaQT8dD8qghN4n1/?send_source=cm%3Acopy_invite_link\nGrup Telegram：https://t.me/NoobzvpnKPNFamily\nChannel Telegram：https://t.me/Indosiasat_Channel\n\nProxyIp berjalan secara global：${proxyIP}`;
   const ty = `https://${hostName}/${Pswd}/ty`
   const cl = `https://${hostName}/${Pswd}/cl`
   const sb = `https://${hostName}/${Pswd}/sb`
@@ -1574,7 +1574,7 @@ proxy-groups:
     - CF_T12_${IP12}_${PT12}
     - CF_T13_${IP13}_${PT13}
 
-- name: 自动选择
+- name: Secara otomatis memilih
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
@@ -1587,7 +1587,7 @@ proxy-groups:
     - CF_T12_${IP12}_${PT12}
     - CF_T13_${IP13}_${PT13}
 
-- name: 🌍选择代理
+- name: 🌍Pilih agen
   type: select
   proxies:
     - 负载均衡
@@ -1603,7 +1603,7 @@ proxy-groups:
 rules:
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
-  - MATCH,🌍选择代理`
+  - MATCH,🌍Pilih agen`
 }
 		
 function getpsbConfig(Pswd, hostName) {
