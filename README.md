@@ -1,16 +1,74 @@
-# KONFIGURASI HTTP CUSTOM
-<p>🇮🇩 Axis</p>
-<a href="https://raw.githubusercontent.com/Indosiasat/Config/refs/heads/main/.github/workflows/vidio.hc">Axis edu</a> | 
-<p>🇮🇩 XL axiata</p>
-<a href="https://raw.githubusercontent.com/Indosiasat/Config/refs/heads/main/.github/workflows/vidio.hc">Paket vidio</a> | 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploy Worker Button</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      font-size: 16px;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .status {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Deploy Cloudflare Worker</h2>
 
-🇮🇩 Indosat ooredoo
+  <!-- Tombol untuk memulai deployment -->
+  <button class="button" id="deployButton">Deploy Worker</button>
 
-🇮🇩 Smartfren
+  <!-- Menampilkan status -->
+  <div class="status" id="status"></div>
 
-🇮🇩 Telkomsel
+  <script>
+    document.getElementById('deployButton').addEventListener('click', deployWorker);
 
-🇮🇩 Byu
+    async function deployWorker() {
+      document.getElementById('status').textContent = 'Deploying...';
 
-🇮🇩 Tri
-# TES
+      // Endpoint API Cloudflare untuk deploy worker (gunakan Wrangler API atau API Cloudflare)
+      const deployApiUrl = 'https://api.cloudflare.com/client/v4/accounts/{account_id}/workers/scripts/{script_name}/deployments';
+      
+      const headers = {
+        'Authorization': 'Bearer {YOUR_API_TOKEN}',  // Gantilah dengan token API Anda
+        'Content-Type': 'application/json'
+      };
+
+      const response = await fetch(deployApiUrl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          // Konfigurasi untuk worker, ini tergantung pada setup Anda
+          "script": {
+            "name": "my-worker",
+            "type": "javascript"
+          },
+          // Data lain yang diperlukan oleh Cloudflare untuk deployment
+        })
+      });
+
+      if (response.ok) {
+        document.getElementById('status').textContent = 'Worker deployed successfully!';
+      } else {
+        const errorData = await response.json();
+        document.getElementById('status').textContent = 'Failed to deploy: ' + errorData.errors[0].message;
+      }
+    }
+  </script>
+</body>
+</html>
