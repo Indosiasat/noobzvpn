@@ -1,56 +1,22 @@
-name = "noobzvpn"  # Nama aplikasi/worker Anda
-main = "index.js"      # File entry utama yang akan dieksekusi oleh Worker
-
-type = "javascript"    # Jenis worker yang digunakan (javascript)
-
-# Tentukan pengaturan untuk environment production dan development
-
-[env.production]
-route = "https://your-domain.com/*"  # Menentukan domain atau subdomain custom
-zone_id = "your-zone-id"            # ID zona Cloudflare Anda
-
-[env.dev]
-route = "http://localhost:8787/*"  # Rute untuk pengembangan lokal
-zone_id = "your-zone-id"
-
-# Menentukan API Worker di Cloudflare
-[workers]
-kv_namespaces = []  # Menambahkan namespace untuk KV storage (jika diperlukan)
-vars = {}
-
-# Untuk mendukung berbagai protokol proxy (Trojan, V2Ray), SOCKS5, dan DoH
-[[bindings]]
-type = "secret"
-name = "DOH_SERVER"
-text = "https://dns.google/dns-query"  # Contoh server DoH, bisa diganti sesuai preferensi
+name = "noobz"
+main = "index.js"
 
 [[bindings]]
 type = "secret"
-name = "SOCKS5_SERVER"
-text = "socks5://your-socks5-server:1080"  # Alamat server SOCKS5 Anda
+name = "VLESS_SERVER_URL"
+text = "vless-server.com"
 
 [[bindings]]
 type = "secret"
-name = "PROXY_SERVER"
-text = "http://your-proxy-server.com"  # Alamat server proxy Anda (misalnya Trojan atau V2Ray)
-
-# Menambahkan UUID atau password untuk identifikasi atau otentikasi
-[[bindings]]
-type = "secret"
-name = "UUID"
-text = "f091c96d-419a-4c69-994c-6944182c46af"  # UUID yang digunakan untuk konfigurasi unik
+name = "VMESS_SERVER_URL"
+text = "vmess-server.com"
 
 [[bindings]]
 type = "secret"
-name = "PASSWORD"
-text = "your-secure-password"  # Password untuk otentikasi atau konfigurasi lainnya
+name = "TROJAN_SERVER_URL"
+text = "trojan-server.com"
 
-# **Wildcard Domain dan Custom Domain**:
-# Anda bisa mendefinisikan wildcard domain untuk menangani semua subdomain atau custom domain.
-[[env.production]]
-route = "https://*.noobzvpn.pages.dev/*"  # Wildcard untuk menangani semua subdomain
-zone_id = "your-zone-id"  # ID zona Cloudflare Anda
-
-[[env.production]]
-route = "https://custom-domain.com/*"  # Custom domain untuk aplikasi lain
-zone_id = "your-zone-id"  # ID zona Cloudflare Anda
+[[bindings]]
+type = "secret"
+name = "SOCKS5_SERVER_URL"
+text = "socks5-server.com"
