@@ -9,14 +9,14 @@ text = "f091c96d-419a-4c69-994c-6944182c46af"  # Ganti dengan UUID yang sesuai
 [[bindings]]
 type = "secret"
 name = "PASSWORD"
-text = "your-password"  # Ganti dengan password yang sesuai
+text = "noobzvpn"  # Ganti dengan password yang sesuai
 
 [[bindings]]
 type = "secret"
 name = "PROXY"
 text = "103.168.146.169:20132"  # Ganti dengan URL proxy yang sesuai
 
-[[bindings]]
-type = "secret"
-name = "SOCKS5"
-text = "socks5-server.com"  # Ganti dengan URL SOCKS5 server yang sesuai
+#[[bindings]]
+#type = "secret"
+#name = "SOCKS5"
+#text = "socks5-server.com"  # Ganti dengan URL SOCKS5 server yang sesuai
