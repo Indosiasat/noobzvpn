@@ -1,9 +1,0 @@
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=youtubei.googleapis.com#Apps+Fun+YouTube+youtubei
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=youtubeembeddedplayer.googleapis.com#Apps+Fun+YouTube+youtubeembeddedplayer.googleapis.com
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=youtube.googleapis.com#Apps+Fun+YouTube+youtube.googleapis.com
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=www.youtube-nocookie.com#Apps+Fun+YouTube+youtube-nocookie.com
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=redirector.googlevideo.com#Apps+Fun+YouTube+Googlevideo
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=s.ytimg.com#Apps+Fun+YouTube+ytimg
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=yt3.ggpht.com#Apps+Fun+YouTube+ggpht
-vless://12304100-aea4-11ef-b634-205c6d5f5d78@asia1.fufo.org:443?security=tls&encryption=none&headerType=none&type=tcp&sni=open.spotifycdn.com#Apps+Fun+Spotify
-vless://5dd9aa60-ae85-11ef-b935-205c6d5f5d78@openconnect.netflix.com:443?path=%2Fvlws&security=tls&encryption=none&host=asia1.fufo.org&type=ws&sni=asia1.fufo.org#Apps+Fun+netflix
