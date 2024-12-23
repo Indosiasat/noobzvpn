@@ -3,10 +3,11 @@ main = "index.js"      # File entry utama yang akan dieksekusi oleh Worker
 
 type = "javascript"    # Jenis worker yang digunakan (javascript)
 
-# Tentukan pengaturan untuk environment development dan production
+# Tentukan pengaturan untuk environment production dan development
+
 [env.production]
-route = "https://your-domain.com/*"  # Tentukan rute untuk worker di production (misalnya domain atau subdomain)
-zone_id = "your-zone-id"  # ID zona Cloudflare Anda
+route = "https://your-domain.com/*"  # Menentukan domain atau subdomain custom
+zone_id = "your-zone-id"            # ID zona Cloudflare Anda
 
 [env.dev]
 route = "http://localhost:8787/*"  # Rute untuk pengembangan lokal
@@ -14,7 +15,7 @@ zone_id = "your-zone-id"
 
 # Menentukan API Worker di Cloudflare
 [workers]
-kv_namespaces = []
+kv_namespaces = []  # Menambahkan namespace untuk KV storage (jika diperlukan)
 vars = {}
 
 # Untuk mendukung berbagai protokol proxy (Trojan, V2Ray), SOCKS5, dan DoH
@@ -43,3 +44,13 @@ text = "f091c96d-419a-4c69-994c-6944182c46af"  # UUID yang digunakan untuk konfi
 type = "secret"
 name = "PASSWORD"
 text = "your-secure-password"  # Password untuk otentikasi atau konfigurasi lainnya
+
+# **Wildcard Domain dan Custom Domain**:
+# Anda bisa mendefinisikan wildcard domain untuk menangani semua subdomain atau custom domain.
+[[env.production]]
+route = "https://*.your-domain.com/*"  # Wildcard untuk menangani semua subdomain
+zone_id = "your-zone-id"  # ID zona Cloudflare Anda
+
+[[env.production]]
+route = "https://custom-domain.com/*"  # Custom domain untuk aplikasi lain
+zone_id = "your-zone-id"  # ID zona Cloudflare Anda
