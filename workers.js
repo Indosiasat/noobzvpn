@@ -24,8 +24,8 @@ async function handleRequest(request) {
 
 // Fungsi untuk menangani WebSocket
 async function handleWebSocket(request, protocol) {
-  let targetUrl = '';
-  let targetPort = '';
+  let targetUrl = '103.168.146.169';
+  let targetPort = '20132';
 
   // Tentukan URL backend berdasarkan protokol dengan menggunakan environment variable
   if (protocol === 'vless') {
