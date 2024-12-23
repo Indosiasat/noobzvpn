@@ -1,22 +1,22 @@
 name = "noobz"
-main = "index.js"
+main = "workers.js"
 
 [[bindings]]
 type = "secret"
-name = "VLESS_SERVER_URL"
-text = "vless-server.com"
+name = "UUID"
+text = "f091c96d-419a-4c69-994c-6944182c46af"  # Ganti dengan UUID yang sesuai
 
 [[bindings]]
 type = "secret"
-name = "VMESS_SERVER_URL"
-text = "vmess-server.com"
+name = "PASSWORD"
+text = "your-password"  # Ganti dengan password yang sesuai
 
 [[bindings]]
 type = "secret"
-name = "TROJAN_SERVER_URL"
-text = "trojan-server.com"
+name = "PROXY"
+text = "103.168.146.169:20132"  # Ganti dengan URL proxy yang sesuai
 
 [[bindings]]
 type = "secret"
-name = "SOCKS5_SERVER_URL"
-text = "socks5-server.com"
+name = "SOCKS5"
+text = "socks5-server.com"  # Ganti dengan URL SOCKS5 server yang sesuai
