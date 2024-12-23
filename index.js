@@ -6,37 +6,56 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const upgradeHeader = request.headers.get('Upgrade');
 
+  // Mendapatkan IP pengunjung dari header Cloudflare
+  const ip = request.headers.get('CF-Connecting-IP') || 'Unknown IP';
+  
+  // Mengambil informasi geolocation berdasarkan IP pengunjung
+  const geolocationInfo = await getGeolocation(ip);
+
+  // Log informasi geolocation
+  console.log(`Visitor IP: ${ip}`);
+  console.log(`Geolocation Info: ${JSON.stringify(geolocationInfo)}`);
+
+  // Jika permintaan WebSocket, lakukan WebSocket handshake
   if (upgradeHeader && upgradeHeader.toLowerCase() === 'websocket') {
-    // Tentukan endpoint untuk proxy WebSocket berdasarkan domain atau URL
-    const protocol = url.hostname.split('.')[0]; // Mengambil subdomain sebagai protokol
-    return await handleWebSocket(request, protocol);
+    const protocol = url.hostname.split('.')[0]; // Mengambil subdomain untuk menentukan protokol (vless, vmess, trojan)
+    return await handleWebSocket(request, protocol, ip, geolocationInfo);
   }
 
-  return new Response('Only WebSocket connections are supported', { status: 400 });
+  // Jika bukan WebSocket, tangani sebagai permintaan HTTP biasa dan balas dengan 200 OK beserta geolocation info
+  return new Response(`HTTP request received from IP: ${ip}\nGeolocation Info: ${JSON.stringify(geolocationInfo)}`, { status: 200 });
 }
 
-async function handleWebSocket(request, protocol) {
-  let targetUrl = '';
-  let targetPort = '';
+// Fungsi untuk mendapatkan informasi geolocation berdasarkan IP
+async function getGeolocation(ip) {
+  const API_KEY = 'YOUR_API_KEY';  // Ganti dengan API key dari ipinfo.io atau layanan lain
+  const url = `https://ipinfo.io/${ip}/json?token=${API_KEY}`;
 
-  // Tentukan URL backend dan port berdasarkan protokol
+  const response = await fetch(url);
+  if (!response.ok) {
+    return { error: 'Unable to fetch geolocation data' };
+  }
+  
+  const data = await response.json();
+  return data;
+}
+
+async function handleWebSocket(request, protocol, ip, geolocationInfo) {
+  let targetUrl = '';
+  let targetPort = 443;  // Default port for secure WebSocket
+
+  // Tentukan URL dan port berdasarkan protokol (vless, vmess, trojan)
   if (protocol === 'vless') {
-    targetUrl = VLESS_SERVER_URL;  // Dapatkan URL dari variabel lingkungan
-    targetPort = VLESS_PORT || 443; // Port default VLESS
+    targetUrl = VLESS_SERVER_URL;
   } else if (protocol === 'vmess') {
-    targetUrl = VMESS_SERVER_URL;  // Dapatkan URL dari variabel lingkungan
-    targetPort = VMESS_PORT || 443; // Port default VMess
+    targetUrl = VMESS_SERVER_URL;
   } else if (protocol === 'trojan') {
-    targetUrl = TROJAN_SERVER_URL;  // Dapatkan URL dari variabel lingkungan
-    targetPort = TROJAN_PORT || 443; // Port default Trojan
-  } else if (protocol === 'socks5') {
-    targetUrl = SOCKS5_SERVER_URL;  // Dapatkan URL dari variabel lingkungan
-    targetPort = SOCKS5_PORT || 1080; // Port default SOCKS5
+    targetUrl = TROJAN_SERVER_URL;
   } else {
     return new Response('Unsupported protocol', { status: 400 });
   }
 
-  // Membuka koneksi WebSocket ke server backend
+  // Membuka koneksi WebSocket ke backend server
   const { readable, writable } = new WebSocketPair();
   const ws = readable.getReader();
   const wsClient = writable.getWriter();
@@ -52,5 +71,10 @@ async function handleWebSocket(request, protocol) {
 
   ws.pipeTo(backendReader);
 
-  return new Response(null, { status: 101, webSocket: ws });
+  // Menanggapi dengan status 101 (WebSocket handshake sukses)
+  console.log(`WebSocket connection established from IP: ${ip}`);
+  return new Response(
+    `WebSocket connection established from IP: ${ip}\nGeolocation Info: ${JSON.stringify(geolocationInfo)}`,
+    { status: 101, webSocket: ws }
+  );
 }
