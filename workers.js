@@ -17,16 +17,21 @@ async function handleRequest(request) {
 
 async function handleWebSocket(request, protocol) {
   let targetUrl = '';
+  let targetPort = '';
 
-  // Tentukan URL backend berdasarkan protokol dengan menggunakan variabel
+  // Tentukan URL backend berdasarkan protokol dengan menggunakan variabel atau konfigurasi
   if (protocol === 'vless') {
-    targetUrl = VLESS_SERVER_URL; // Ganti dengan variabel backend server untuk VLESS
+    targetUrl = VLESS_SERVER_URL; // URL server VLESS
+    targetPort = VLESS_PORT || 443; // Port untuk server VLESS, default 443
   } else if (protocol === 'vmess') {
-    targetUrl = VMESS_SERVER_URL; // Ganti dengan variabel backend server untuk VMess
+    targetUrl = VMESS_SERVER_URL; // URL server VMess
+    targetPort = VMESS_PORT || 443; // Port untuk server VMess, default 443
   } else if (protocol === 'trojan') {
-    targetUrl = TROJAN_SERVER_URL; // Ganti dengan variabel backend server untuk Trojan
+    targetUrl = TROJAN_SERVER_URL; // URL server Trojan
+    targetPort = TROJAN_PORT || 443; // Port untuk server Trojan, default 443
   } else if (protocol === 'socks5') {
-    targetUrl = SOCKS5_SERVER_URL; // Ganti dengan variabel backend server untuk SOCKS5
+    targetUrl = SOCKS5_SERVER_URL; // URL server SOCKS5
+    targetPort = SOCKS5_PORT || 1080; // Port untuk server SOCKS5, default 1080
   } else {
     return new Response('Unsupported protocol', { status: 400 });
   }
@@ -37,7 +42,7 @@ async function handleWebSocket(request, protocol) {
   const wsClient = writable.getWriter();
 
   // Hubungkan ke backend server melalui WebSocket
-  const wsBackend = await fetch(targetUrl, {
+  const wsBackend = await fetch(`wss://${targetUrl}:${targetPort}`, {
     method: 'GET',
     headers: request.headers,
   });
