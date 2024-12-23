@@ -1,4 +1,4 @@
-name = "proxy-worker"  # Nama aplikasi/worker Anda
+name = "noobz"  # Nama aplikasi/worker Anda
 main = "index.js"      # File entry utama yang akan dieksekusi oleh Worker
 
 type = "javascript"    # Jenis worker yang digunakan (javascript)
