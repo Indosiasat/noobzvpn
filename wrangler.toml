@@ -1,4 +1,4 @@
-name = "noobz"  # Nama aplikasi/worker Anda
+name = "noobzvpn"  # Nama aplikasi/worker Anda
 main = "index.js"      # File entry utama yang akan dieksekusi oleh Worker
 
 type = "javascript"    # Jenis worker yang digunakan (javascript)
@@ -48,7 +48,7 @@ text = "your-secure-password"  # Password untuk otentikasi atau konfigurasi lain
 # **Wildcard Domain dan Custom Domain**:
 # Anda bisa mendefinisikan wildcard domain untuk menangani semua subdomain atau custom domain.
 [[env.production]]
-route = "https://*.your-domain.com/*"  # Wildcard untuk menangani semua subdomain
+route = "https://*.noobzvpn.pages.dev/*"  # Wildcard untuk menangani semua subdomain
 zone_id = "your-zone-id"  # ID zona Cloudflare Anda
 
 [[env.production]]
