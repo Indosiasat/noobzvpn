@@ -4,77 +4,45 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   const url = new URL(request.url);
-  const upgradeHeader = request.headers.get('Upgrade');
+  const protocol = url.hostname.split('.')[0];  // Menentukan protokol (vless, vmess, trojan)
+  const uuid = url.pathname.split('/')[1];     // Mengambil UUID dari URL
 
-  // Mendapatkan IP pengunjung dari header Cloudflare
-  const ip = request.headers.get('CF-Connecting-IP') || 'Unknown IP';
-  
-  // Mengambil informasi geolocation berdasarkan IP pengunjung
-  const geolocationInfo = await getGeolocation(ip);
-
-  // Log informasi geolocation
-  console.log(`Visitor IP: ${ip}`);
-  console.log(`Geolocation Info: ${JSON.stringify(geolocationInfo)}`);
-
-  // Jika permintaan WebSocket, lakukan WebSocket handshake
-  if (upgradeHeader && upgradeHeader.toLowerCase() === 'websocket') {
-    const protocol = url.hostname.split('.')[0]; // Mengambil subdomain untuk menentukan protokol (vless, vmess, trojan)
-    return await handleWebSocket(request, protocol, ip, geolocationInfo);
+  if (!uuid) {
+    return new Response('UUID is missing', { status: 400 });
   }
 
-  // Jika bukan WebSocket, tangani sebagai permintaan HTTP biasa dan balas dengan 200 OK beserta geolocation info
-  return new Response(`HTTP request received from IP: ${ip}\nGeolocation Info: ${JSON.stringify(geolocationInfo)}`, { status: 200 });
-}
+  // Tentukan port dan server berdasarkan protokol
+  let server = '';
+  let port = '443';  // Default port untuk VLESS/VMess
+  let path = `/${uuid}`;
+  let security = 'tls';
+  let encryption = 'none';
 
-// Fungsi untuk mendapatkan informasi geolocation berdasarkan IP
-async function getGeolocation(ip) {
-  const API_KEY = 'YOUR_API_KEY';  // Ganti dengan API key dari ipinfo.io atau layanan lain
-  const url = `https://ipinfo.io/${ip}/json?token=${API_KEY}`;
-
-  const response = await fetch(url);
-  if (!response.ok) {
-    return { error: 'Unable to fetch geolocation data' };
-  }
-  
-  const data = await response.json();
-  return data;
-}
-
-async function handleWebSocket(request, protocol, ip, geolocationInfo) {
-  let targetUrl = '';
-  let targetPort = 443;  // Default port for secure WebSocket
-
-  // Tentukan URL dan port berdasarkan protokol (vless, vmess, trojan)
   if (protocol === 'vless') {
-    targetUrl = VLESS_SERVER_URL;
+    server = 'example-vless-server.com'; // Server VLESS
   } else if (protocol === 'vmess') {
-    targetUrl = VMESS_SERVER_URL;
+    server = 'example-vmess-server.com'; // Server VMess
   } else if (protocol === 'trojan') {
-    targetUrl = TROJAN_SERVER_URL;
+    server = 'example-trojan-server.com'; // Server Trojan
   } else {
     return new Response('Unsupported protocol', { status: 400 });
   }
 
-  // Membuka koneksi WebSocket ke backend server
-  const { readable, writable } = new WebSocketPair();
-  const ws = readable.getReader();
-  const wsClient = writable.getWriter();
+  // Menyusun konfigurasi VLESS secara dinamis
+  const configUrl = generateConfigUrl(protocol, uuid, server, port, path, security, encryption);
 
-  // Hubungkan ke backend server melalui WebSocket
-  const wsBackend = await fetch(`wss://${targetUrl}:${targetPort}`, {
-    method: 'GET',
-    headers: request.headers,
+  return new Response(configUrl, {
+    headers: { 'Content-Type': 'text/plain' },
   });
+}
 
-  const backendReader = wsBackend.body.getReader();
-  backendReader.pipeTo(wsClient);
-
-  ws.pipeTo(backendReader);
-
-  // Menanggapi dengan status 101 (WebSocket handshake sukses)
-  console.log(`WebSocket connection established from IP: ${ip}`);
-  return new Response(
-    `WebSocket connection established from IP: ${ip}\nGeolocation Info: ${JSON.stringify(geolocationInfo)}`,
-    { status: 101, webSocket: ws }
-  );
+// Fungsi untuk menghasilkan URL konfigurasi VLESS
+function generateConfigUrl(protocol, uuid, server, port, path, security, encryption) {
+  if (protocol === 'vless') {
+    return `vless://${uuid}@${server}:${port}?path=${encodeURIComponent(path)}&security=${security}&encryption=${encryption}&host=${server}&sni=${server}#${server}`;
+  } else if (protocol === 'vmess') {
+    return `vmess://${uuid}@${server}:${port}?path=${encodeURIComponent(path)}&security=${security}&encryption=${encryption}&host=${server}&sni=${server}#${server}`;
+  } else if (protocol === 'trojan') {
+    return `trojan://${uuid}@${server}:${port}?path=${encodeURIComponent(path)}&security=${security}&encryption=${encryption}&host=${server}&sni=${server}#${server}`;
+  }
 }
