@@ -1,7 +1,7 @@
-name = "proxy-worker" # Nama aplikasi/worker Anda
-main = "index.js"     # File entry utama yang akan dieksekusi oleh Worker
+name = "proxy-worker"  # Nama aplikasi/worker Anda
+main = "index.js"      # File entry utama yang akan dieksekusi oleh Worker
 
-type = "javascript"   # Jenis worker yang digunakan (javascript)
+type = "javascript"    # Jenis worker yang digunakan (javascript)
 
 # Tentukan pengaturan untuk environment development dan production
 [env.production]
@@ -32,3 +32,14 @@ text = "socks5://your-socks5-server:1080"  # Alamat server SOCKS5 Anda
 type = "secret"
 name = "PROXY_SERVER"
 text = "http://your-proxy-server.com"  # Alamat server proxy Anda (misalnya Trojan atau V2Ray)
+
+# Menambahkan UUID atau password untuk identifikasi atau otentikasi
+[[bindings]]
+type = "secret"
+name = "UUID"
+text = "f091c96d-419a-4c69-994c-6944182c46af"  # UUID yang digunakan untuk konfigurasi unik
+
+[[bindings]]
+type = "secret"
+name = "PASSWORD"
+text = "your-secure-password"  # Password untuk otentikasi atau konfigurasi lainnya
