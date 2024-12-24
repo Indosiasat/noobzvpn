@@ -695,3 +695,143 @@ function isValidTimestamp(timestamp) {
   const timestampDate = new Date(timestamp);
   return !isNaN(timestampDate.getTime());
 }
+/**
+ * Menangani komunikasi antara socket jarak jauh (remote socket) dan WebSocket.
+ * @param {WebSocket} ws - WebSocket yang terhubung dari client.
+ * @param {string} remoteHost - Alamat host dari server jarak jauh.
+ * @param {number} remotePort - Port dari server jarak jauh.
+ * @param {Object} env - Environment variables untuk pengaturan socket dan konfigurasi lainnya.
+ * @returns {Promise<void>} - Fungsi asinkron yang menangani koneksi dan komunikasi.
+ */
+async function RemoteSocketToWS(ws, remoteHost, remotePort, env) {
+  let remoteSocket;
+
+  try {
+    // Buat koneksi TCP ke server jarak jauh
+    remoteSocket = await connectToRemoteSocket(remoteHost, remotePort);
+
+    // Tangani data dari WebSocket ke remote socket
+    ws.onmessage = async (event) => {
+      try {
+        // Kirim data dari WebSocket ke remote socket
+        const message = event.data;
+        await writeToSocket(remoteSocket, message);
+      } catch (error) {
+        console.error('Error while writing to remote socket:', error);
+        abortConnection(remoteSocket);
+        ws.close(1002, 'Error writing to remote socket.');
+      }
+    };
+
+    // Tangani data dari remote socket ke WebSocket
+    remoteSocket.on('data', async (data) => {
+      try {
+        // Kirim data dari remote socket ke WebSocket
+        await ws.send(data);
+      } catch (error) {
+        console.error('Error while sending data to WebSocket:', error);
+        abortConnection(remoteSocket);
+        ws.close(1002, 'Error sending data to WebSocket.');
+      }
+    });
+
+    // Tangani penutupan WebSocket
+    ws.onclose = async () => {
+      console.log('WebSocket closed, closing remote socket.');
+      await closeSocket(remoteSocket);
+    };
+
+    // Tangani kesalahan pada WebSocket
+    ws.onerror = (err) => {
+      console.error('WebSocket error:', err);
+      abortConnection(remoteSocket);
+      ws.close(1002, 'WebSocket error occurred.');
+    };
+
+    // Tangani kesalahan pada remote socket
+    remoteSocket.on('error', (err) => {
+      console.error('Remote socket error:', err);
+      abortConnection(remoteSocket);
+      ws.close(1011, 'Remote socket error occurred.');
+    });
+
+    // Tangani penutupan koneksi remote socket
+    remoteSocket.on('end', async () => {
+      console.log('Remote socket closed.');
+      ws.close(1000, 'Remote socket closed.');
+    });
+  } catch (error) {
+    console.error('Error establishing remote socket connection:', error);
+    if (remoteSocket) {
+      abortConnection(remoteSocket);
+    }
+    ws.close(1011, 'Server error occurred.');
+  }
+}
+
+/**
+ * Membuat koneksi ke socket jarak jauh.
+ * @param {string} host - Host dari server jarak jauh.
+ * @param {number} port - Port dari server jarak jauh.
+ * @returns {Promise<net.Socket>} - Koneksi socket.
+ */
+async function connectToRemoteSocket(host, port) {
+  return new Promise((resolve, reject) => {
+    const net = require('net');
+    const socket = new net.Socket();
+
+    socket.connect(port, host, () => {
+      console.log(`Connected to remote socket at ${host}:${port}`);
+      resolve(socket);
+    });
+
+    socket.on('error', (err) => {
+      reject(`Failed to connect to remote socket: ${err.message}`);
+    });
+  });
+}
+
+/**
+ * Menulis data ke socket.
+ * @param {net.Socket} socket - Koneksi socket.
+ * @param {Buffer | string} data - Data yang akan dikirim ke socket.
+ * @returns {Promise<void>} - Fungsi asinkron yang menangani penulisan data.
+ */
+async function writeToSocket(socket, data) {
+  return new Promise((resolve, reject) => {
+    socket.write(data, (err) => {
+      if (err) {
+        reject(`Error writing to socket: ${err.message}`);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+/**
+ * Menutup koneksi socket dengan cara yang aman.
+ * @param {net.Socket} socket - Koneksi socket.
+ * @returns {Promise<void>} - Fungsi asinkron untuk menutup koneksi socket.
+ */
+async function closeSocket(socket) {
+  return new Promise((resolve, reject) => {
+    socket.end(() => {
+      console.log('Socket closed successfully.');
+      resolve();
+    });
+    socket.on('error', (err) => {
+      reject(`Error closing socket: ${err.message}`);
+    });
+  });
+}
+
+/**
+ * Membatalkan atau memutuskan koneksi socket.
+ * @param {net.Socket} socket - Koneksi socket yang akan dihentikan.
+ * @returns {void}
+ */
+function abortConnection(socket) {
+  console.log('Aborting connection...');
+  socket.destroy(); // Memutuskan koneksi secara paksa
+}
