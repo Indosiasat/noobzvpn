@@ -918,3 +918,141 @@ function stringify(obj, fallback = '') {
     return fallback;  // Nilai default adalah string kosong, bisa disesuaikan sesuai kebutuhan
   }
 }
+/**
+ * Menangani query DNS yang melibatkan UDP chunk, WebSocket, protokol respons, dan log.
+ * Fungsi ini akan memproses query DNS, menulis hasilnya ke WebSocket, serta menangani log sesuai protokol.
+ * Mendukung DNS resolver publik Google dan Cloudflare.
+ *
+ * @param {Uint8Array} udpChunk - Bagian data DNS query dalam format UDP
+ * @param {WebSocket} webSocket - WebSocket untuk mengirimkan hasil ke klien
+ * @param {Object} protocolResponseHeader - Header respons protokol untuk menangani status dan metadata
+ * @param {function} log - Fungsi untuk menulis log yang diperlukan
+ */
+async function handleDNSQuery(udpChunk, webSocket, protocolResponseHeader, log) {
+  try {
+    // Menangani chunk UDP DNS
+    const dnsQuery = parseDNSQuery(udpChunk);
+    log(`Menerima query DNS untuk domain: ${dnsQuery.domain}`);
+
+    // Memproses query DNS menggunakan resolver publik (Google atau Cloudflare)
+    const dnsResults = await queryDNS(dnsQuery.domain);
+
+    // Menyusun respons protokol dengan header yang sesuai
+    const protocolResponse = buildProtocolResponse(dnsResults, protocolResponseHeader);
+
+    // Menulis respons ke WebSocket
+    await sendResponseToWebSocket(webSocket, protocolResponse);
+
+    // Log respons sukses
+    log(`Berhasil mengirimkan respons untuk domain: ${dnsQuery.domain}`);
+  } catch (error) {
+    // Menangani kesalahan
+    log(`Terjadi kesalahan dalam memproses query DNS: ${error.message}`);
+    
+    // Menangani pengiriman pesan kesalahan ke WebSocket
+    const errorMessage = buildProtocolResponseError(error.message, protocolResponseHeader);
+    await sendResponseToWebSocket(webSocket, errorMessage);
+
+    // Menutup koneksi WebSocket setelah kesalahan
+    safeCloseWebSocket(webSocket);
+  }
+}
+
+/**
+ * Parse chunk UDP untuk mendapatkan domain dari DNS query.
+ * @param {Uint8Array} udpChunk - Bagian data DNS query dalam format UDP
+ * @returns {Object} - Objek DNS yang berisi domain yang diminta
+ */
+function parseDNSQuery(udpChunk) {
+  // Contoh sederhana: mengonversi UDP chunk ke string domain
+  const queryString = new TextDecoder().decode(udpChunk);
+  return { domain: queryString.trim() };
+}
+
+/**
+ * Melakukan query DNS untuk domain yang diberikan menggunakan resolver publik (Google atau Cloudflare).
+ * @param {string} domain - Domain yang diminta
+ * @returns {Promise<Object>} - Hasil query DNS
+ */
+async function queryDNS(domain) {
+  // Gunakan resolver DNS publik (Google: 8.8.8.8, Cloudflare: 1.1.1.1)
+  const dnsResolvers = [
+    'https://dns.google/resolve?name=',    // Google DNS
+    'https://1.1.1.1/dns-query?name='     // Cloudflare DNS
+  ];
+
+  // Pilih DNS resolver (gunakan Cloudflare atau Google)
+  const resolverUrl = dnsResolvers[Math.floor(Math.random() * dnsResolvers.length)];
+
+  // Query DNS dengan menggunakan fetch
+  const response = await fetch(`${resolverUrl}${domain}`, { method: 'GET' });
+  const data = await response.json();
+
+  // Periksa apakah DNS berhasil ditemukan
+  if (data.Status === 0 && data.Answer) {
+    return {
+      ip: data.Answer[0].data, // IP address dari hasil DNS
+      domain: domain
+    };
+  } else {
+    throw new Error('DNS query failed or no valid answer.');
+  }
+}
+
+/**
+ * Menyusun respons protokol berdasarkan hasil DNS query.
+ * @param {Object} dnsResults - Hasil query DNS
+ * @param {Object} protocolResponseHeader - Header respons protokol
+ * @returns {Object} - Respons protokol lengkap
+ */
+function buildProtocolResponse(dnsResults, protocolResponseHeader) {
+  return {
+    header: protocolResponseHeader,
+    status: 'success',
+    result: dnsResults
+  };
+}
+
+/**
+ * Menyusun respons error untuk protokol jika terjadi kesalahan.
+ * @param {string} errorMessage - Pesan kesalahan
+ * @param {Object} protocolResponseHeader - Header respons protokol
+ * @returns {Object} - Respons error untuk protokol
+ */
+function buildProtocolResponseError(errorMessage, protocolResponseHeader) {
+  return {
+    header: protocolResponseHeader,
+    status: 'error',
+    error: errorMessage
+  };
+}
+
+/**
+ * Mengirimkan respons ke WebSocket.
+ * @param {WebSocket} webSocket - WebSocket untuk mengirimkan data
+ * @param {Object} response - Respons untuk dikirimkan ke WebSocket
+ */
+async function sendResponseToWebSocket(webSocket, response) {
+  const responseString = JSON.stringify(response);
+
+  // Jika WebSocket masih dalam keadaan terbuka, kirim respons
+  if (webSocket.readyState === WebSocket.OPEN) {
+    webSocket.send(responseString);
+  } else {
+    throw new Error('WebSocket tidak terbuka untuk pengiriman.');
+  }
+}
+
+/**
+ * Menutup WebSocket dengan cara yang aman.
+ * @param {WebSocket} webSocket - WebSocket untuk ditutup
+ */
+function safeCloseWebSocket(webSocket) {
+  try {
+    if (webSocket.readyState === WebSocket.OPEN) {
+      webSocket.close();
+    }
+  } catch (error) {
+    console.error('Kesalahan saat menutup WebSocket:', error);
+  }
+}
