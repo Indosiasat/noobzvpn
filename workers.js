@@ -490,7 +490,7 @@ async function readStream() {
   }
 }
 
-readStream();
+// Fungsi untuk memproses header protokol
 function ProcessProtocolHeader(protocolBuffer, userID) {
   try {
     // Pastikan protocolBuffer adalah objek tipe Buffer atau ArrayBuffer
@@ -532,12 +532,64 @@ function ProcessProtocolHeader(protocolBuffer, userID) {
   }
 }
 
+// Fungsi untuk menghubungkan remote socket ke WebSocket dan menangani pengiriman data
+async function RemoteSocketToWS(remoteSocket, webSocket, protocolResponseHeader, retry, log) {
+  let retries = retry || 3; // Jumlah maksimal retry jika koneksi gagal
+  let connected = false;
+
+  // Fungsi untuk menulis data ke WebSocket
+  async function writeToWebSocket(data) {
+    try {
+      if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+        webSocket.send(data); // Mengirim data ke WebSocket
+        log('Data dikirim ke WebSocket');
+      } else {
+        log('WebSocket tidak terbuka. Data tidak dapat dikirim.');
+      }
+    } catch (error) {
+      log('Error saat menulis ke WebSocket: ' + error.message);
+      throw error; // Melempar error untuk penanganan lebih lanjut
+    }
+  }
+
+  // Fungsi untuk menghubungkan ulang jika terjadi kegagalan
+  async function tryConnect() {
+    try {
+      if (connected) {
+        return; // Koneksi sudah terhubung
+      }
+
+      // Lakukan percakapan atau pengiriman data di sini
+      await writeToWebSocket(protocolResponseHeader);
+
+      // Jika berhasil, tandai sebagai connected
+      connected = true;
+    } catch (error) {
+      retries -= 1;
+      log(`Gagal mengirim data. Sisa percobaan: ${retries}`);
+      if (retries > 0) {
+        // Coba lagi jika masih ada percobaan
+        await tryConnect();
+      } else {
+        log('Jumlah percobaan habis, tidak dapat mengirim data.');
+      }
+    }
+  }
+
+  // Coba untuk melakukan koneksi
+  await tryConnect();
+}
+
 // Memanggil fungsi untuk memproses protocol header
 const result = ProcessProtocolHeader(protocolBuffer, userID);
 console.log(result);
-async function RemoteSocketToWS(remoteSocket, webSocket, protocolResponseHeader, retry, log) {
-  let retries = 3; // Jumlah maksimal retry jika koneksi gagal
-  let connected = false;
+
+// Menggunakan WebSocket
+const webSocket = new WebSocket('ws://example.com');
+webSocket.onopen = () => {
+  // Panggil RemoteSocketToWS saat WebSocket terbuka
+  RemoteSocketToWS(null, webSocket, 'Header response', 3, console.log);
+};
 
   // Fungsi untuk menulis data ke WebSocket
   async function writeToWebSocket(data) {
@@ -622,8 +674,9 @@ async function RemoteSocketToWS(remoteSocket, webSocket, protocolResponseHeader,
   }
 
   // Mulai proses pengiriman data antara remoteSocket dan WebSocket
-  await handleSocketData();
+{ await handleSocketData();
 }
+
 function base64ToArrayBuffer(base64Str) {
   // Meng-decode string base64 menjadi string biner
   const binaryString = atob(base64Str);
