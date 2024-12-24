@@ -864,3 +864,23 @@ function isValidUUID(uuid) {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   return uuidRegex.test(uuid);
 }
+/**
+ * Menutup koneksi WebSocket dengan cara yang aman.
+ * Fungsi ini memeriksa apakah WebSocket terhubung, dan jika ya, mencoba menutupnya dengan kode dan alasan tertentu.
+ * @param {WebSocket} webSocket - WebSocket yang ingin ditutup.
+ * @param {number} [closeCode=1000] - Kode penutupan WebSocket (default: 1000 - normal closure).
+ * @param {string} [closeReason] - Alasan penutupan WebSocket (opsional).
+ */
+function safeCloseWebSocket(webSocket, closeCode = 1000, closeReason = '') {
+  try {
+    if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+      // Jika WebSocket terbuka, tutup dengan kode dan alasan yang diberikan
+      webSocket.close(closeCode, closeReason);
+      console.log('WebSocket successfully closed.');
+    } else {
+      console.log('WebSocket is not open, skipping close operation.');
+    }
+  } catch (error) {
+    console.error('Error while closing WebSocket:', error);
+  }
+}
