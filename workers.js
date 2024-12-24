@@ -671,3 +671,329 @@ function safeCloseWebSocket(socket) {
     console.log('WebSocket is not open or already closed.');
   }
 }
+function unsafeStringify(arr, offset = 0) {
+  // Mengecek apakah arr adalah array atau tipe data yang dapat diiterasi
+  if (!Array.isArray(arr) && !(arr instanceof Uint8Array)) {
+    throw new Error('Input harus berupa array atau Uint8Array');
+  }
+
+  // Mengambil bagian array mulai dari offset
+  const slice = arr.slice(offset);
+
+  // Mengonversi array byte menjadi string menggunakan TextDecoder
+  const decoder = new TextDecoder('utf-8', { fatal: true });
+
+  try {
+    return decoder.decode(slice);
+  } catch (e) {
+    console.error('Error saat mendekode array byte:', e);
+    return null;
+  }
+}
+function stringify(arr, offset = 0) {
+  // Mengecek apakah arr adalah array atau Uint8Array
+  if (!(arr instanceof Uint8Array)) {
+    throw new Error('Input harus berupa Uint8Array');
+  }
+
+  // Mengambil bagian array mulai dari offset
+  const slice = arr.slice(offset);
+
+  // Mengonversi array byte menjadi string menggunakan TextDecoder
+  const decoder = new TextDecoder('utf-8', { fatal: true });
+
+  try {
+    return decoder.decode(slice);
+  } catch (e) {
+    console.error('Error saat mendekode array byte:', e);
+    return null;
+  }
+}
+function stringify(arr, offset = 0) {
+  // Pastikan arr adalah Uint8Array atau Array yang bisa diproses
+  if (!(arr instanceof Uint8Array)) {
+    throw new Error('Input harus berupa Uint8Array');
+  }
+
+  // Memastikan offset valid, yaitu tidak lebih dari panjang array
+  if (offset < 0 || offset >= arr.length) {
+    throw new Error('Offset tidak valid');
+  }
+
+  // Slice array mulai dari offset
+  const slicedArray = arr.slice(offset);
+
+  // Menggunakan TextDecoder untuk mengonversi array byte ke string
+  const decoder = new TextDecoder('utf-8', { fatal: true });
+
+  try {
+    return decoder.decode(slicedArray);
+  } catch (error) {
+    console.error('Error saat mendekode array byte:', error);
+    return null;
+  }
+}
+async function handleDNSQuery(udpChunk, webSocket, protocolResponseHeader, log) {
+  try {
+    // Log informasi awal jika diperlukan
+    log(`Handling DNS query from WebSocket`);
+
+    // Parse UDP chunk untuk memperoleh data DNS
+    const dnsQuery = parseDNSQuery(udpChunk);
+
+    // Jika query tidak valid, kirim respons error ke WebSocket
+    if (!dnsQuery) {
+      log('DNS query invalid');
+      webSocket.send(createDNSResponseError('Invalid DNS query'));
+      return;
+    }
+
+    // Proses query untuk mencari hasil DNS, menggunakan DNS resolver (misalnya Google atau Cloudflare)
+    const dnsResponse = await queryDNS(dnsQuery);
+
+    // Log hasil DNS query
+    log(`DNS response: ${JSON.stringify(dnsResponse)}`);
+
+    // Bangun dan kirim DNS response ke WebSocket
+    const dnsResponseBuffer = buildDNSResponse(dnsResponse);
+    webSocket.send(dnsResponseBuffer);
+
+    // Jika perlu menambahkan protocol response header, lakukan
+    if (protocolResponseHeader) {
+      webSocket.send(protocolResponseHeader);
+    }
+
+  } catch (error) {
+    // Tangani error dan log
+    log(`Error during DNS query handling: ${error.message}`);
+    webSocket.send(createDNSResponseError('Internal Server Error'));
+  }
+}
+
+// Fungsi untuk memparse DNS query dari UDP chunk
+function parseDNSQuery(udpChunk) {
+  // Implementasi logika untuk parsing DNS query
+  // Misalnya, ekstraksi data dari udpChunk, untuk simplifikasi kita asumsikan format tertentu
+  try {
+    // Untuk contoh ini, asumsikan udpChunk berupa byte array
+    // Parsing untuk DNS query di sini
+    return { query: 'example.com' };  // Misalnya kita anggap query valid dengan domain 'example.com'
+  } catch (error) {
+    console.error('Error parsing DNS query:', error);
+    return null;
+  }
+}
+async function handleDNSQuery(udpChunk, webSocket, protocolResponseHeader, log) {
+  try {
+    // Log informasi awal jika diperlukan
+    log(`Handling DNS query from WebSocket`);
+
+    // Parse UDP chunk untuk memperoleh data DNS
+    const dnsQuery = parseDNSQuery(udpChunk);
+
+    // Jika query tidak valid, kirim respons error ke WebSocket dan tutup koneksi
+    if (!dnsQuery) {
+      log('DNS query invalid');
+      const errorResponse = createDNSResponseError('Invalid DNS query');
+      webSocket.send(errorResponse);  // Kirim error
+      webSocket.close();  // Menutup koneksi WebSocket
+      return;
+    }
+
+    // Proses query untuk mencari hasil DNS, menggunakan DNS resolver (misalnya Google atau Cloudflare)
+    const dnsResponse = await queryDNS(dnsQuery);
+
+    // Log hasil DNS query
+    log(`DNS response: ${JSON.stringify(dnsResponse)}`);
+
+    // Bangun dan kirim DNS response ke WebSocket
+    const dnsResponseBuffer = buildDNSResponse(dnsResponse);
+    webSocket.send(dnsResponseBuffer);
+
+    // Kirim tambahan header jika ada
+    if (protocolResponseHeader) {
+      webSocket.send(protocolResponseHeader);
+    }
+
+    // Jika perlu, tutup koneksi setelah mengirimkan data
+    webSocket.close();
+
+  } catch (error) {
+    // Tangani error dan log
+    log(`Error during DNS query handling: ${error.message}`);
+    const errorResponse = createDNSResponseError('Internal Server Error');
+    webSocket.send(errorResponse);  // Kirim error
+    webSocket.close();  // Menutup koneksi WebSocket
+  }
+}
+
+// Fungsi untuk memparse DNS query dari UDP chunk
+function parseDNSQuery(udpChunk) {
+  // Implementasi logika untuk parsing DNS query
+  try {
+    // Misalnya, ekstraksi data dari udpChunk (untuk contoh ini hanya string)
+    return { query: 'example.com' };  // Contoh query DNS valid
+  } catch (error) {
+    console.error('Error parsing DNS query:', error);
+    return null;
+  }
+}
+
+// Fungsi untuk melakukan query DNS menggunakan DNS resolver eksternal
+async function queryDNS(dnsQuery) {
+  const dnsServer = '1.1.1.1'; // Cloudflare DNS
+  const url = `https://dns.google/resolve?name=${encodeURIComponent(dnsQuery.query)}&type=A`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.Answer) {
+      return data.Answer;  // Mengembalikan hasil DNS
+    }
+    throw new Error('DNS query failed');
+  } catch (error) {
+    console.error('Error querying DNS:', error);
+    return null;
+  }
+}
+
+// Fungsi untuk membangun DNS response berdasarkan hasil query
+function buildDNSResponse(dnsResponse) {
+  // Mengonversi hasil DNS response ke buffer atau format yang sesuai
+  const responseBuffer = new TextEncoder().encode(JSON.stringify(dnsResponse));
+  return responseBuffer;
+}
+
+// Fungsi untuk membuat response error DNS
+function createDNSResponseError(message) {
+  return new TextEncoder().encode(`DNS Error: ${message}`);
+}
+async function socks5Connect(addressType, addressRemote, portRemote, log) {
+  try {
+    // Log informasi awal tentang alamat yang ingin dihubungkan
+    log(`Attempting to connect to SOCKS5: ${addressRemote}:${portRemote}`);
+
+    // Jika menggunakan SOCKS5 dengan autentikasi
+    if (parsedSocks5Address.username && parsedSocks5Address.password) {
+      // Ambil informasi autentikasi dan tujuan SOCKS5
+      const { username, password, hostname, port } = parsedSocks5Address;
+      log(`Connecting using SOCKS5 with authentication: ${username}@${hostname}:${port}`);
+      
+      // Proses koneksi menggunakan alamat SOCKS5 yang valid
+      const remoteSocket = await connectToSocks5WithAuth(hostname, port, username, password, addressRemote, portRemote);
+      
+      // Lakukan pengiriman data jika koneksi berhasil
+      log(`Connected to SOCKS5: ${addressRemote}:${portRemote}`);
+      return remoteSocket;
+    } else {
+      // Jika tidak menggunakan autentikasi, lakukan koneksi tanpa autentikasi
+      log(`Connecting to SOCKS5 without authentication: ${addressRemote}:${portRemote}`);
+      const remoteSocket = await connectToSocks5WithoutAuth(addressRemote, portRemote);
+      
+      // Lakukan pengiriman data jika koneksi berhasil
+      log(`Connected to SOCKS5: ${addressRemote}:${portRemote}`);
+      return remoteSocket;
+    }
+  } catch (error) {
+    // Tangani error jika koneksi gagal
+    log(`Failed to connect to SOCKS5: ${error.message}`);
+    throw new Error('SOCKS5 connection failed');
+  }
+}
+
+// Fungsi untuk koneksi SOCKS5 dengan autentikasi
+async function connectToSocks5WithAuth(hostname, port, username, password, addressRemote, portRemote) {
+  // Logika untuk koneksi dengan autentikasi SOCKS5
+  // Misalnya menggunakan paket atau metode lain untuk melakukan koneksi SOCKS5 dengan autentikasi
+
+  // Contoh koneksi sederhana (gantikan dengan metode yang sesuai)
+  const remoteSocket = await connect(hostname, port);  // Pastikan ini menggunakan metode yang benar
+  // Kirim username dan password setelah berhasil menghubungkan
+  await remoteSocket.send(`${username}:${password}`);
+  
+  // Mengirim data atau melakukan proses lainnya
+  return remoteSocket;
+}
+
+// Fungsi untuk koneksi SOCKS5 tanpa autentikasi
+async function connectToSocks5WithoutAuth(addressRemote, portRemote) {
+  // Logika untuk koneksi SOCKS5 tanpa autentikasi
+  // Misalnya menggunakan paket atau metode lain untuk melakukan koneksi SOCKS5 tanpa autentikasi
+
+  // Contoh koneksi sederhana (gantikan dengan metode yang sesuai)
+  const remoteSocket = await connect(addressRemote, portRemote); // Pastikan ini menggunakan metode yang benar
+  return remoteSocket;
+}
+function socks5AddressParser(address) {
+  // Membuat objek untuk menyimpan informasi yang diparsing
+  const parsedAddress = {
+    username: '',
+    password: '',
+    hostname: '',
+    port: ''
+  };
+
+  // Memeriksa apakah alamat memiliki autentikasi (username:password)
+  const authPattern = /^(.+?):(.+?)@(.*)$/;
+  const authMatch = address.match(authPattern);
+
+  if (authMatch) {
+    // Jika ditemukan format autentikasi, pisahkan menjadi username, password, dan alamat
+    parsedAddress.username = authMatch[1];
+    parsedAddress.password = authMatch[2];
+    address = authMatch[3]; // Ambil bagian alamat tanpa username dan password
+  }
+
+  // Memisahkan alamat dan port
+  const hostPortPattern = /^(.*?)(?::(\d+))?$/;
+  const hostPortMatch = address.match(hostPortPattern);
+
+  if (hostPortMatch) {
+    parsedAddress.hostname = hostPortMatch[1]; // Hostname
+    parsedAddress.port = hostPortMatch[2] || '1080'; // Port (default ke 1080 jika tidak ada)
+  }
+
+  return parsedAddress;
+}
+
+// Contoh penggunaan:
+const address = 'username:password@proxy.example.com:1080';
+const parsed = socks5AddressParser(address);
+
+console.log(parsed);
+// Output:
+// { username: 'username', password: 'password', hostname: 'proxy.example.com', port: '1080' }
+function getConfig(userIDs, hostName, proxyIP) {
+  // Memeriksa apakah userIDs adalah string atau array, dan pastikan menjadi array
+  const userIDArray = Array.isArray(userIDs) ? userIDs : [userIDs];
+
+  // Mengonversi proxyIP menjadi array jika diperlukan
+  const proxyArray = Array.isArray(proxyIP) ? proxyIP : [proxyIP];
+
+  // Membuat konfigurasi untuk masing-masing userID
+  const config = userIDArray.map(userID => {
+    // Membangun URL konfigurasi untuk setiap userID
+    const url = `http://${hostName}/config/${userID}`;
+    
+    // Menambahkan informasi proxy ke konfigurasi jika ada
+    const proxyString = proxyArray.length > 0 ? `?proxy=${encodeURIComponent(proxyArray.join(','))}` : '';
+    
+    return url + proxyString;
+  });
+
+  // Mengembalikan konfigurasi dalam bentuk array
+  return config;
+}
+
+// Contoh penggunaan:
+const userIDs = ['user1', 'user2'];
+const hostName = 'example.com';
+const proxyIP = ['192.168.1.1:1080', '192.168.1.2:8080'];
+
+const result = getConfig(userIDs, hostName, proxyIP);
+console.log(result);
+// Output:
+// [
+//   'http://example.com/config/user1?proxy=192.168.1.1%3A1080%2C192.168.1.2%3A8080',
+//   'http://example.com/config/user2?proxy=192.168.1.1%3A1080%2C192.168.1.2%3A8080'
+// ]
