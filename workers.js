@@ -699,7 +699,7 @@ function stringify(arr, offset = 0) {
     return null;
   }
 }
-function stringify(arr, offset = 0) {
+function stringify1(arr, offset = 0) {
   // Pastikan arr adalah Uint8Array atau Array yang bisa diproses
   if (!(arr instanceof Uint8Array)) {
     throw new Error('Input harus berupa Uint8Array');
@@ -773,7 +773,7 @@ function parseDNSQuery(udpChunk) {
     return null;
   }
 }
-async function handleDNSQuery(udpChunk, webSocket, protocolResponseHeader, log) {
+async function handleDNSQuery1(udpChunk, webSocket, protocolResponseHeader, log) {
   try {
     // Log informasi awal jika diperlukan
     log(`Handling DNS query from WebSocket`);
@@ -818,7 +818,7 @@ async function handleDNSQuery(udpChunk, webSocket, protocolResponseHeader, log) 
 }
 
 // Fungsi untuk memparse DNS query dari UDP chunk
-function parseDNSQuery(udpChunk) {
+function parseDNSQuery1(udpChunk) {
   // Implementasi logika untuk parsing DNS query
   try {
     // Misalnya, ekstraksi data dari udpChunk (untuk contoh ini hanya string)
