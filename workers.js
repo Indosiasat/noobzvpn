@@ -1217,3 +1217,34 @@ function randomPath(length = 10) {
 // Contoh penggunaan
 const randomUrl = randomPathHttpHttps(12); // URL acak dengan path sepanjang 12 karakter
 console.log(randomUrl); // Contoh output: https://example.com/9Tg7kW1y6jA9
+/**
+ * Fungsi untuk menangani konfigurasi proxy dari PROXYIP
+ * @param {string} PROXYIP - String yang berisi alamat proxy, bisa berupa satu atau beberapa alamat yang dipisahkan koma
+ * @returns {Object} - Objek yang berisi IP dan port proxy yang telah diparsing
+ */
+function handleProxyConfig(PROXYIP) {
+  // Memeriksa apakah PROXYIP valid
+  if (!PROXYIP) {
+    throw new Error('PROXYIP tidak ditemukan.');
+  }
+
+  // Pisahkan alamat proxy berdasarkan koma (jika ada beberapa)
+  const proxyList = PROXYIP.split(',').map(ip => ip.trim());
+
+  // Ambil proxy pertama dari daftar (bisa disesuaikan untuk memilih proxy secara acak)
+  const [proxyAddress] = proxyList;
+
+  // Pisahkan IP dan port (misalnya: "192.168.1.1:8080")
+  const [ip, port = '443'] = proxyAddress.split(':');
+
+  // Mengembalikan objek yang berisi alamat IP dan port
+  return {
+    ip: ip,
+    port: port,
+  };
+}
+
+// Contoh penggunaan
+const PROXYIP = '192.168.1.1:8080, 192.168.1.2:443'; // Daftar proxy
+const config = handleProxyConfig(PROXYIP);
+console.log(config); // Output: { ip: '192.168.1.1', port: '8080' }
