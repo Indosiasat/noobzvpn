@@ -76,7 +76,7 @@ function handleWebSocket(webSocket, env, ctx) {
     
     if (message.type === 'proxy') {
       // Menangani proxy sesuai protokol
-      const target = await handleProtocol(message, webSocket);
+      const target = await handleProtocol1(message, webSocket);
       webSocket.send(JSON.stringify({ status: 'success', message: `Proksi ke ${target}` }));
     }
   });
@@ -98,7 +98,7 @@ function handleWebSocket(webSocket, env, ctx) {
  * @param {WebSocket} webSocket - Koneksi WebSocket
  * @returns {string} - Alamat tujuan atau pesan dari proxy
  */
-async function handleProtocol(message, webSocket) {
+async function handleProtoco2(message, webSocket) {
   let protocolHandler;
 
   switch (protocol) {
@@ -237,7 +237,7 @@ async function ProtocolOverWSHandler(request) {
         log('Pesan diterima: ', message);
 
         // Proses pesan berdasarkan tipe protokol
-        const response = await handleProtocol(message);
+        const response = await handleProtoco3(message);
         await write(server, response);
 
       } catch (error) {
@@ -305,7 +305,7 @@ function abort(webSocket, reason) {
 }
 
 // Fungsi untuk menangani protokol tertentu
-async function handleProtocol(message) {
+async function handleProtocol2(message) {
   // Implementasikan logika untuk menangani berbagai protokol seperti VLESS, VMESS, Trojan
   // Ini hanya contoh dasar, implementasi lebih lanjut tergantung pada protokol yang digunakan.
   if (message.type === 'vless') {
