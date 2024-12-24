@@ -1056,3 +1056,90 @@ function safeCloseWebSocket(webSocket) {
     console.error('Kesalahan saat menutup WebSocket:', error);
   }
 }
+/**
+ * Membuat koneksi ke server SOCKS5.
+ * @param {string} addressType - Jenis alamat (IPv4, IPv6, atau domain)
+ * @param {string} addressRemote - Alamat remote server (IP atau domain)
+ * @param {number} portRemote - Port yang digunakan untuk koneksi remote
+ * @param {function} log - Fungsi log untuk mencatat aktivitas
+ * @returns {Promise<WebSocket>} - Promise yang mengembalikan WebSocket yang terhubung
+ */
+async function socks5Connect(addressType, addressRemote, portRemote, log) {
+  // Log permulaan koneksi
+  log(`Memulai koneksi SOCKS5 ke ${addressRemote}:${portRemote} dengan address type ${addressType}`);
+
+  // Tentukan alamat SOCKS5
+  const sock5Address = `ws://${addressRemote}:${portRemote}`;
+
+  try {
+    // Membuat koneksi WebSocket ke server SOCKS5
+    const socket = new WebSocket(sock5Address);
+
+    // Menunggu koneksi WebSocket terbuka
+    await new Promise((resolve, reject) => {
+      socket.onopen = resolve;
+      socket.onerror = (err) => {
+        reject(new Error('Gagal terhubung ke server SOCKS5'));
+      };
+    });
+
+    // Log koneksi berhasil
+    log(`Koneksi SOCKS5 berhasil ke ${addressRemote}:${portRemote}`);
+
+    // Kirimkan permintaan SOCKS5 (misalnya autentikasi atau jenis koneksi yang diinginkan)
+    const request = new Uint8Array([0x05, 0x01, 0x00]); // Contoh permintaan SOCKS5 tanpa autentikasi
+    socket.send(request);
+    
+    // Menunggu respons dari server SOCKS5
+    await new Promise((resolve, reject) => {
+      socket.onmessage = (message) => {
+        const response = new Uint8Array(message.data);
+        if (response[1] === 0x00) { // Status OK
+          resolve();
+        } else {
+          reject(new Error('Gagal otentikasi SOCKS5'));
+        }
+      };
+      socket.onerror = reject;
+    });
+
+    // Koneksi berhasil, kembalikan socket
+    return socket;
+  } catch (err) {
+    // Jika terjadi kesalahan selama koneksi, log dan lemparkan kesalahan
+    log(`Koneksi SOCKS5 gagal: ${err.message}`);
+    throw err;
+  }
+}
+/**
+ * Mengurai alamat SOCKS5 menjadi komponen-komponennya seperti host, port, username, dan password.
+ * @param {string} address - Alamat SOCKS5 yang ingin diurai (contoh: 'username:password@host:port' atau 'host:port')
+ * @returns {Object} - Objek yang berisi komponen alamat SOCKS5
+ */
+function socks5AddressParser(address) {
+  // Jika alamat kosong, kembalikan objek kosong
+  if (!address) {
+    return {};
+  }
+
+  // Tentukan komponen address (auth@host:port) atau hanya host:port
+  const [auth, hostPort] = address.includes('@') ? address.split('@') : [null, address];
+  const [host, port] = hostPort.split(':');
+
+  // Jika ada autentikasi (username:password)
+  let username = '';
+  let password = '';
+  if (auth) {
+    const [user, pass] = auth.split(':');
+    username = user || '';
+    password = pass || '';
+  }
+
+  // Kembalikan objek yang berisi komponen-komponen yang diurai
+  return {
+    host,
+    port: port || '1080',  // Defaultkan port ke 1080 jika tidak ada port yang diberikan
+    username,
+    password,
+  };
+}
