@@ -318,39 +318,35 @@ async function handleProtocol(message) {
     return { status: 'failed', message: 'Protokol tidak dikenali' };
   }
 }
-async function HandleTCPOutBound(remoteSocket, addressType, addressRemote, portRemote, rawClientData, webSocket, protocolResponseHeader, log) {
+async function HandleTCPOutBound(remoteSocket, addressType, addressRemote, portRemote, rawClientData, webSocket, protocolResponseHeader, log, useSocks = false) {
   // Fungsi untuk mencoba membuat koneksi TCP dan menulis data
   const MAX_RETRIES = 3; // Tentukan jumlah maksimal percobaan ulang
   let retries = 0;
 
-  // Fungsi untuk mencoba membuat koneksi TCP
-  const connectToRemoteSocket = async () => {
+  // Fungsi untuk menghubungkan ke remote socket melalui SOCKS jika diperlukan
+  const connectToRemoteSocket = async (addressRemote, portRemote) => {
     try {
-      // Mencoba menghubungkan ke remote socket
-      log(`Mencoba menghubungkan ke ${addressRemote}:${portRemote}...`);
-      const socket = await connect({
-        host: addressRemote,
-        port: portRemote,
-        protocol: addressType // Menentukan tipe alamat (IPv4, IPv6)
-      });
+      // Jika menggunakan SOCKS, lakukan koneksi melalui SOCKS
+      if (useSocks) {
+        log(`Menghubungkan ke ${addressRemote}:${portRemote} melalui SOCKS...`);
 
-      // Menulis data ke remote socket
-      await socket.write(rawClientData);
-      log(`Data berhasil dikirim ke ${addressRemote}:${portRemote}`);
+        // Gantilah dengan metode spesifik Anda untuk menghubungkan melalui SOCKS
+        // Implementasi koneksi SOCKS
+        const socks5Address = 'socks5-proxy.example.com:1080'; // Proxy SOCKS
+        const socksConnection = await socks5Connect(socks5Address, addressRemote, portRemote, log);
+        return socksConnection;
+      } else {
+        // Koneksi langsung tanpa SOCKS
+        log(`Menghubungkan langsung ke ${addressRemote}:${portRemote}...`);
 
-      // Membaca respon dari remote socket
-      const response = await socket.read();
-      if (response) {
-        log('Respon diterima dari server:', response);
+        const socket = await connect({
+          host: addressRemote,
+          port: portRemote,
+          protocol: addressType // Menentukan tipe alamat (IPv4, IPv6)
+        });
+
+        return socket;
       }
-
-      // Kirim kembali respon ke WebSocket jika ada
-      if (webSocket) {
-        webSocket.send(response); // Mengirim data ke WebSocket
-      }
-
-      return socket; // Mengembalikan socket yang terhubung
-
     } catch (error) {
       // Jika gagal, tangani percobaan ulang
       retries++;
@@ -358,7 +354,7 @@ async function HandleTCPOutBound(remoteSocket, addressType, addressRemote, portR
 
       if (retries < MAX_RETRIES) {
         log(`Mencoba ulang koneksi (${retries}/${MAX_RETRIES})...`);
-        return connectToRemoteSocket(); // Coba lagi jika belum mencapai batas retry
+        return connectToRemoteSocket(addressRemote, portRemote); // Coba lagi jika belum mencapai batas retry
       } else {
         // Jika sudah mencapai maksimal percobaan, lemparkan error
         log('Koneksi gagal setelah beberapa kali percobaan.');
@@ -367,9 +363,131 @@ async function HandleTCPOutBound(remoteSocket, addressType, addressRemote, portR
     }
   };
 
-  // Mencoba membuat koneksi TCP dan menunggu hasilnya
-  const remoteSocketConnection = await connectToRemoteSocket();
+  // Fungsi untuk menunggu dan menulis data ke remote socket
+  const writeToSocket = async (socket, data) => {
+    try {
+      await socket.write(data); // Menulis data ke remote socket
+      log(`Data berhasil dikirim ke ${addressRemote}:${portRemote}`);
+    } catch (error) {
+      log(`Error saat menulis data ke socket: ${error.message}`);
+      throw error;
+    }
+  };
 
-  // Mengembalikan koneksi remote socket yang berhasil terhubung
-  return remoteSocketConnection;
+  // Fungsi utama untuk menangani TCP outbound
+  const handleOutbound = async () => {
+    try {
+      // Coba untuk menghubungkan ke remote socket
+      const socket = await connectToRemoteSocket(addressRemote, portRemote);
+
+      // Setelah terkoneksi, kirim data ke socket
+      await writeToSocket(socket, rawClientData);
+
+      // Tunggu respons dari remote server (bisa menggunakan socket.read atau mekanisme lain sesuai implementasi)
+      const response = await socket.read();
+      if (response) {
+        log('Respon diterima dari server:', response);
+        // Kirimkan kembali data ke WebSocket jika ada
+        if (webSocket) {
+          webSocket.send(response); // Mengirim data ke WebSocket
+        }
+      }
+
+      // Menutup socket setelah selesai
+      socket.close();
+      log('Koneksi ditutup setelah komunikasi selesai.');
+    } catch (error) {
+      log(`Terjadi kesalahan: ${error.message}`);
+      throw error;
+    }
+  };
+
+  // Menjalankan proses utama untuk outbound TCP
+  await handleOutbound();
 }
+function MakeReadableWebSocketStream(webSocketServer, earlyDataHeader, log, start, pull, cancel) {
+  // Membuat ReadableStream yang dapat dibaca dari WebSocket
+  const webSocketStream = new ReadableStream({
+    start(controller) {
+      // Mulai streaming data dari WebSocket
+      start(controller);
+    },
+    async pull(controller) {
+      try {
+        // Tarik data dari WebSocket server jika tersedia
+        const message = await webSocketServer.receive(); // Mengambil pesan dari WebSocket server
+        if (message) {
+          // Jika ada data, masukkan ke dalam stream controller
+          controller.enqueue(message);
+        } else {
+          // Jika tidak ada data, tutup stream
+          controller.close();
+        }
+      } catch (err) {
+        // Menangani error jika terjadi masalah saat menarik data
+        log(`Error saat menarik data dari WebSocket: ${err.message}`);
+        controller.error(err); // Menghentikan stream jika ada error
+      }
+    },
+    cancel(reason) {
+      // Menghentikan stream dengan alasan tertentu
+      log(`Stream dibatalkan karena: ${reason}`);
+      cancel(reason); // Memanggil cancel untuk membersihkan jika diperlukan
+    }
+  });
+
+  // Mengembalikan ReadableStream
+  return webSocketStream;
+}
+
+// Contoh penggunaan
+const webSocketServer = {
+  // Simulasi menerima pesan dari WebSocket server
+  async receive() {
+    // Fungsi untuk menerima data dari WebSocket
+    // Biasanya, ini akan memanggil webSocket.receive() atau metode serupa
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve("Data dari WebSocket"), 1000); // Simulasi menerima data
+    });
+  }
+};
+
+const log = (message) => console.log(message);
+
+// Fungsi start untuk memulai stream
+const startController = (controller) => {
+  console.log('Stream dimulai.');
+};
+
+// Fungsi pull untuk menarik data
+const pullController = (controller) => {
+  console.log('Menarik data dari WebSocket...');
+};
+
+// Fungsi cancel untuk membatalkan stream
+const cancelController = (reason) => {
+  console.log(`Stream dibatalkan: ${reason}`);
+};
+
+// Membuat WebSocket stream yang dapat dibaca
+const readableStream = MakeReadableWebSocketStream(webSocketServer, null, log, startController, pullController, cancelController);
+
+// Menggunakan stream untuk membaca data
+const reader = readableStream.getReader();
+async function readStream() {
+  try {
+    let done = false;
+    while (!done) {
+      const { value, done: streamDone } = await reader.read();
+      if (streamDone) {
+        done = true;
+      } else {
+        console.log('Data diterima:', value);
+      }
+    }
+  } catch (err) {
+    console.error('Error membaca stream:', err);
+  }
+}
+
+readStream();
