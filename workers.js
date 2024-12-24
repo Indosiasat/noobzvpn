@@ -884,3 +884,37 @@ function safeCloseWebSocket(webSocket, closeCode = 1000, closeReason = '') {
     console.error('Error while closing WebSocket:', error);
   }
 }
+/**
+ * Mengubah objek menjadi string JSON dengan cara yang lebih aman. 
+ * Jika terjadi kesalahan, kembalikan `null` atau string kosong, tanpa memunculkan error.
+ * 
+ * @param {any} obj - Objek yang akan diubah menjadi string JSON.
+ * @returns {string} - String JSON yang mewakili objek, atau null jika gagal.
+ */
+function unsafeStringify(obj) {
+  try {
+    return JSON.stringify(obj);
+  } catch (error) {
+    console.error('Error in unsafeStringify:', error);
+    return null;  // atau bisa mengembalikan '{}' atau '' tergantung kebutuhan
+  }
+  
+}
+/**
+ * Mengubah objek menjadi string JSON dengan penanganan kesalahan yang lebih baik.
+ * Jika terjadi kesalahan, kembalikan string kosong atau nilai fallback lainnya.
+ * 
+ * @param {any} obj - Objek yang akan diubah menjadi string JSON.
+ * @param {string} [fallback=''] - Nilai fallback yang akan dikembalikan jika terjadi kesalahan saat serialisasi.
+ * @returns {string} - String JSON yang mewakili objek, atau nilai fallback jika gagal.
+ */
+function stringify(obj, fallback = '') {
+  try {
+    // Mengubah objek menjadi string JSON
+    return JSON.stringify(obj);
+  } catch (error) {
+    // Jika terjadi kesalahan saat serialisasi, kembalikan nilai fallback
+    console.error('Error in stringify:', error);
+    return fallback;  // Nilai default adalah string kosong, bisa disesuaikan sesuai kebutuhan
+  }
+}
