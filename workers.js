@@ -854,3 +854,13 @@ function base64ToArrayBuffer(base64) {
 
   return arrayBuffer;
 }
+/**
+ * Memvalidasi apakah string merupakan UUID yang valid.
+ * UUID harus mengikuti format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ * @param {string} uuid - String yang akan diverifikasi apakah merupakan UUID yang valid.
+ * @returns {boolean} - True jika UUID valid, false jika tidak.
+ */
+function isValidUUID(uuid) {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(uuid);
+}
