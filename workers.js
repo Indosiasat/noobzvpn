@@ -1144,14 +1144,20 @@ function socks5AddressParser(address) {
   };
 }
 /**
- * Fungsi untuk menghasilkan subscription link.
- * Biasanya digunakan untuk menghasilkan file atau URL untuk pengaturan konfigurasi proxy.
+ * Fungsi untuk menghasilkan subscription link dan menambahkan CNAME publik Cloudflare.
  * @param {string} userID_path - ID pengguna atau path untuk URL
  * @param {string} hostname - Nama host untuk konfigurasi
  * @param {string[]} proxyIP - Daftar alamat IP proxy
  * @returns {string} - Konten subscription link
  */
 function GenSub(userID_path, hostname, proxyIP) {
+  // Daftar CNAME publik Cloudflare yang umum digunakan
+  const cloudflareCnames = [
+    'cloudflare.com', 'cdn.cloudflare.com', '1.1.1.1', '1.0.0.1', 
+    '1.1.1.1.cloudflare-dns.com', '1.0.0.1.cloudflare-dns.com',
+    'dns.cloudflare.com', 'dns.google', 'resolvers.cloudflare.com'
+  ];
+
   // Jika proxyIP adalah string, ubah menjadi array
   if (typeof proxyIP === 'string') {
     proxyIP = proxyIP.split(',').map(ip => ip.trim());
@@ -1160,10 +1166,16 @@ function GenSub(userID_path, hostname, proxyIP) {
   // Buat bagian pertama dari URL konfigurasi
   let subLink = `sub/${userID_path}?host=${hostname}`;
 
-  // Tambahkan alamat proxy ke dalam link
+  // Tambahkan alamat proxy ke dalam link jika ada
   if (proxyIP && proxyIP.length > 0) {
     const proxyList = proxyIP.join(',');
     subLink += `&proxy=${encodeURIComponent(proxyList)}`;
+  }
+
+  // Tambahkan CNAME Cloudflare ke dalam URL
+  if (cloudflareCnames && cloudflareCnames.length > 0) {
+    const cnames = cloudflareCnames.join(',');
+    subLink += `&cloudflare_cnames=${encodeURIComponent(cnames)}`;
   }
 
   // Kembalikan subscription link yang telah dibangun
