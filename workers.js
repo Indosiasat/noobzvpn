@@ -600,3 +600,98 @@ async function readStream() {
 
 // Mulai membaca stream
 readStream();
+/**
+ * Memproses header protokol dari request atau pesan yang diterima.
+ * Fungsi ini dapat memvalidasi, memparsing, atau menyesuaikan data dari header protokol.
+ * @param {Object} header - Header protokol yang perlu diproses.
+ * @returns {Object} - Objek yang berisi status atau data yang diproses.
+ */
+function ProcessProtocolHeader(header) {
+  // Mengecek apakah header protokol valid
+  if (!header || typeof header !== 'object') {
+    throw new Error('Invalid protocol header.');
+  }
+
+  // Contoh header yang bisa diproses (misalnya untuk WebSocket atau protokol lain)
+  const protocolFields = ['UUID', 'Version', 'Token', 'Authorization', 'Timestamp'];
+
+  // Memastikan bahwa semua field yang diperlukan ada dalam header
+  const missingFields = protocolFields.filter(field => !(field in header));
+
+  if (missingFields.length > 0) {
+    throw new Error(`Missing required protocol fields: ${missingFields.join(', ')}`);
+  }
+
+  // Validasi UUID
+  if (!isValidUUID(header.UUID)) {
+    throw new Error('Invalid UUID in protocol header.');
+  }
+
+  // Validasi versi protokol
+  if (!isValidProtocolVersion(header.Version)) {
+    throw new Error('Invalid protocol version.');
+  }
+
+  // Validasi token atau authorization
+  if (!isValidToken(header.Token)) {
+    throw new Error('Invalid token or authorization.');
+  }
+
+  // Validasi timestamp
+  if (!isValidTimestamp(header.Timestamp)) {
+    throw new Error('Invalid timestamp.');
+  }
+
+  // Jika semua validasi berhasil, mengembalikan data yang telah diproses
+  return {
+    status: 'success',
+    data: {
+      UUID: header.UUID,
+      Version: header.Version,
+      Token: header.Token,
+      Timestamp: header.Timestamp
+    }
+  };
+}
+
+/**
+ * Memeriksa apakah UUID yang diberikan valid.
+ * @param {string} uuid - UUID yang akan diperiksa.
+ * @returns {boolean} - Return true jika UUID valid, false jika tidak.
+ */
+function isValidUUID(uuid) {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(uuid);
+}
+
+/**
+ * Memeriksa apakah versi protokol valid.
+ * @param {string} version - Versi protokol yang akan diperiksa.
+ * @returns {boolean} - Return true jika versi protokol valid, false jika tidak.
+ */
+function isValidProtocolVersion(version) {
+  // Anggap versi protokol yang valid adalah angka dengan format X.Y.Z
+  const versionRegex = /^\d+\.\d+\.\d+$/;
+  return versionRegex.test(version);
+}
+
+/**
+ * Memeriksa apakah token atau otorisasi valid.
+ * @param {string} token - Token yang akan diperiksa.
+ * @returns {boolean} - Return true jika token valid, false jika tidak.
+ */
+function isValidToken(token) {
+  // Anggap token valid jika panjangnya lebih dari 10 karakter
+  return typeof token === 'string' && token.length > 10;
+}
+
+/**
+ * Memeriksa apakah timestamp valid.
+ * @param {string} timestamp - Timestamp yang akan diperiksa.
+ * @returns {boolean} - Return true jika timestamp valid, false jika tidak.
+ */
+function isValidTimestamp(timestamp) {
+  // Memastikan timestamp adalah angka yang valid dan dalam rentang waktu yang wajar
+  const timestampDate = new Date(timestamp);
+  return !isNaN(timestampDate.getTime());
+}
