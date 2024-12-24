@@ -1248,3 +1248,25 @@ function handleProxyConfig(PROXYIP) {
 const PROXYIP = '192.168.1.1:8080, 192.168.1.2:443'; // Daftar proxy
 const config = handleProxyConfig(PROXYIP);
 console.log(config); // Output: { ip: '192.168.1.1', port: '8080' }
+/**
+ * Fungsi untuk memilih alamat proxy secara acak dari daftar alamat proxy
+ * @param {string[]} proxyAddresses - Array yang berisi alamat proxy
+ * @returns {string} - Alamat proxy yang dipilih secara acak
+ */
+function selectRandomAddress(proxyAddresses) {
+  // Memeriksa apakah ada alamat proxy yang diberikan
+  if (!proxyAddresses || proxyAddresses.length === 0) {
+    throw new Error('Daftar alamat proxy kosong.');
+  }
+
+  // Pilih indeks acak dari daftar proxyAddresses
+  const randomIndex = Math.floor(Math.random() * proxyAddresses.length);
+
+  // Kembalikan alamat proxy yang dipilih secara acak
+  return proxyAddresses[randomIndex];
+}
+
+// Contoh penggunaan
+const proxyAddresses = ['192.168.1.1:8080', '192.168.1.2:443', '192.168.1.3:3128'];
+const randomProxy = selectRandomAddress(proxyAddresses);
+console.log(randomProxy); // Output: salah satu dari alamat proxy acak
