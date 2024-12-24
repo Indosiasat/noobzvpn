@@ -997,3 +997,68 @@ console.log(result);
 //   'http://example.com/config/user1?proxy=192.168.1.1%3A1080%2C192.168.1.2%3A8080',
 //   'http://example.com/config/user2?proxy=192.168.1.1%3A1080%2C192.168.1.2%3A8080'
 // ]
+function GenSub(userID_path, hostname, proxyIP) {
+    // Daftar CNAME CDN publik yang umum digunakan
+    const cdnCnames = [
+        'cloudflare.com', 'cdn.cloudflare.com', '1.1.1.1', '1.0.0.1', 
+        '1.1.1.1.cloudflare-dns.com', '1.0.0.1.cloudflare-dns.com',
+        'dns.cloudflare.com', 'dns.google', 'resolvers.cloudflare.com', // Cloudflare
+        'akamai.net', 'akamaized.net', 'a2cdn.net', 'fastly.net', // Akamai
+        'cloudfront.net', 'amazonaws.com', 'awsstatic.com', // CloudFront (Amazon)
+        'keycdn.com', 'stackpathdns.com', 'maxcdn.com', 'stackpath.com', // StackPath / MaxCDN
+        'b-cdn.net', 'bunnycdn.com', 'bunnycdn.cloud', // BunnyCDN
+        'quic.cloud', 'sucuri.net', 'sucuricloud.com', 'sucuri.com', // Sucuri
+        'cdn77.org', 'cdn77.com', 'incapsula.com', 'imperva.com', // Incapsula / Imperva
+        'edgecastcdn.net', 'edgedns.com', 'edgesuite.net', // Edgecast
+        'cdnetworks.com', 'cndns.net', 'stackpathdns.com' // CDN Networks
+    ];
+
+    // Daftar IP publik proxy CDN yang umum digunakan
+    const cdnProxyIPs = [
+        '104.16.0.0/12', '104.17.0.0/16', // Cloudflare
+        '23.48.0.0/14', '23.46.0.0/15', // Akamai
+        '23.235.32.0/22', '185.31.16.0/22', // Fastly
+        '205.251.192.0/19', '205.251.249.0/24', // CloudFront (Amazon)
+        '185.2.4.0/22', '185.2.4.0/24', // KeyCDN
+        '185.31.16.0/22' // StackPath / MaxCDN
+    ];
+
+    // Jika proxyIP adalah string, ubah menjadi array
+    if (typeof proxyIP === 'string') {
+        proxyIP = proxyIP.split(',').map(ip => ip.trim());
+    }
+
+    // Membuat bagian pertama dari URL konfigurasi
+    let subLink = `sub/${userID_path}?host=${hostname}`;
+
+    // Menambahkan alamat proxy ke dalam link jika ada
+    if (proxyIP && proxyIP.length > 0) {
+        const proxyList = proxyIP.join(',');
+        subLink += `&proxy=${encodeURIComponent(proxyList)}`;
+    }
+
+    // Menambahkan CNAME CDN ke dalam URL
+    if (cdnCnames && cdnCnames.length > 0) {
+        const cnames = cdnCnames.join(',');
+        subLink += `&cdn_cnames=${encodeURIComponent(cnames)}`;
+    }
+
+    // Menambahkan IP publik CDN ke dalam URL
+    if (cdnProxyIPs && cdnProxyIPs.length > 0) {
+        const ipList = cdnProxyIPs.join(',');
+        subLink += `&cdn_proxy_ips=${encodeURIComponent(ipList)}`;
+    }
+
+    // Kembalikan subscription link yang telah dibangun
+    return subLink;
+}
+
+// Contoh penggunaan:
+const userID_path = 'user123';
+const hostname = 'example.com';
+const proxyIP = ['192.168.1.1:8080', '192.168.1.2:443'];
+
+const result = GenSub(userID_path, hostname, proxyIP);
+console.log(result);
+// Output:
+// 'sub/user123?host=example.com&proxy=192.168.1.1%3A8080%2C192.168.1.2%3A443&cdn_cnames=cloudflare.com%2Ccdn.cloudflare.com%2C1.1.1.1%2C1.0.0.1%2C1.1.1.1.cloudflare-dns.com%2C1.0.0.1.cloudflare-dns.com%2Cdns.cloudflare.com%2Cdns.google%2Cresolvers.cloudflare.com%2Cakamai.net%2Cakamaized.net%2Ca2cdn.net%2Cfastly.net%2Ccloudfront.net%2Camazonaws.com%2Cawsstatic.com%2Ckeycdn.com%2Cstackpathdns.com%2Cmaxcdn.com%2Cstackpath.com%2Cb-cdn.net%2Cbunnycdn.com%2Cbunnycdn.cloud%2Cquic.cloud%2Csucuri.net%2Csucuricloud.com%2Csucuri.com%2Ccdn77.org%2Ccdn77.com%2Cincapsula.com%2Cimperva.com%2Cedgecastcdn.net%2Ccdnetworks.com%2Ccdns.net%2Cstackpathdns.com&cdn_proxy_ips=104.16.0.0%2F12%2C104.17.0.0%2F16%2C23.48.0.0%2F14%2C23.46.0.0%2F15%2C23.235.32.0%2F22%2C185.31.16.0%2F22%2C205.251.192.0%2F19%2C205.251.249.0%2F24%2C185.2.4.0%2F22%2C185.2.4.0%2F24%2C185.31.16.0%2F22'
