@@ -136,3 +136,110 @@ function connectToTarget(proxyIP, proxyPort, socks5Config, useSocks5) {
   }
   return `Proxy Langsung: ${proxyIP}:${proxyPort}`;
 }
+async fetch(request, env, _ctx) {
+    try {
+        const { UUID, PROXYIP, SOCKS5, SOCKS5_RELAY } = env;
+        userID = UUID || userID;
+        socks5Address = SOCKS5 || socks5Address;
+        socks5Relay = SOCKS5_RELAY || socks5Relay;
+
+        // Menangani konfigurasi proxy
+        const proxyConfig = handleProxyConfig(PROXYIP);
+        proxyIP = proxyConfig.ip;
+        proxyPort = proxyConfig.port;
+
+        if (socks5Address) {
+            try {
+                const selectedSocks5 = selectRandomAddress(socks5Address);
+                parsedSocks5Address = socks5AddressParser(selectedSocks5);
+                enableSocks = true;
+            } catch (err) {
+                console.log(err.toString());
+                enableSocks = false;
+            }
+        }
+
+        const userIDs = userID.includes(',') ? userID.split(',').map(id => id.trim()) : [userID];
+        const url = new URL(request.url);
+        const host = request.headers.get('Host');
+        const requestedPath = url.pathname.substring(1); // Menghapus slash di awal
+        const matchingUserID = userIDs.length === 1 ?
+            (requestedPath === userIDs[0] || 
+             requestedPath === `sub/${userIDs[0]}` || 
+             requestedPath === `bestip/${userIDs[0]}` ? userIDs[0] : null) :
+            userIDs.find(id => {
+                const patterns = [id, `sub/${id}`, `bestip/${id}`];
+                return patterns.some(pattern => requestedPath.startsWith(pattern));
+            });
+
+        // Jika permintaan bukan WebSocket, proses sebagai permintaan HTTP biasa
+        if (request.headers.get('Upgrade') !== 'websocket') {
+            if (url.pathname === '/cf') {
+                // Mengembalikan informasi tentang Cloudflare request
+                return new Response(JSON.stringify(request.cf, null, 4), {
+                    status: 200,
+                    headers: { "Content-Type": "application/json;charset=utf-8" },
+                });
+            }
+
+            // Jika ditemukan ID pengguna yang cocok
+            if (matchingUserID) {
+                if (url.pathname === `/${matchingUserID}` || url.pathname === `/sub/${matchingUserID}`) {
+                    const isSubscription = url.pathname.startsWith('/sub/');
+                    const proxyAddresses = PROXYIP ? PROXYIP.split(',').map(addr => addr.trim()) : proxyIP;
+                    const content = isSubscription ?
+                        GenSub(matchingUserID, host, proxyAddresses) :
+                        getConfig(matchingUserID, host, proxyAddresses);
+
+                    return new Response(content, {
+                        status: 200,
+                        headers: {
+                            "Content-Type": isSubscription ?
+                                "text/plain;charset=utf-8" :
+                                "text/html; charset=utf-8"
+                        },
+                    });
+                } else if (url.pathname === `/bestip/${matchingUserID}`) {
+                    // Menangani permintaan untuk `bestip/{userID}`
+                    return fetch(`https://sub.xf.free.hr/auto?host=${host}&uuid=${matchingUserID}&path=/`, { headers: request.headers });
+                }
+            }
+
+            // Jika rute tidak ditemukan, arahkan ke fungsi penanganan default
+            return handleDefaultPath(url, request);
+        } else {
+            // Menangani koneksi WebSocket
+            return await ProtocolOverWSHandler(request);
+        }
+    } catch (err) {
+        return new Response(err.toString());
+    }
+},
+
+/**
+ * Menangani permintaan pada rute default ketika tidak ada rute khusus yang cocok.
+ * Menghasilkan dan mengembalikan halaman antarmuka cloud drive dalam format HTML.
+ * @param {URL} url - Objek URL dari permintaan
+ * @param {Request} request - Objek permintaan yang masuk
+ * @returns {Response} Respons HTML dengan antarmuka cloud drive
+ */
+function handleDefaultPath(url, request) {
+    // Menampilkan halaman antarmuka cloud drive (contoh)
+    const cloudDriveHTML = `
+        <html>
+            <head>
+                <title>Cloud Drive</title>
+            </head>
+            <body>
+                <h1>Welcome to Cloud Drive</h1>
+                <p>Your request path was: ${url.pathname}</p>
+                <p>Cloudflare Request Information:</p>
+                <pre>${JSON.stringify(request.cf, null, 4)}</pre>
+            </body>
+        </html>
+    `;
+    return new Response(cloudDriveHTML, {
+        status: 200,
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+    });
+}
