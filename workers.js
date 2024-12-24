@@ -1143,3 +1143,29 @@ function socks5AddressParser(address) {
     password,
   };
 }
+/**
+ * Fungsi untuk menghasilkan subscription link.
+ * Biasanya digunakan untuk menghasilkan file atau URL untuk pengaturan konfigurasi proxy.
+ * @param {string} userID_path - ID pengguna atau path untuk URL
+ * @param {string} hostname - Nama host untuk konfigurasi
+ * @param {string[]} proxyIP - Daftar alamat IP proxy
+ * @returns {string} - Konten subscription link
+ */
+function GenSub(userID_path, hostname, proxyIP) {
+  // Jika proxyIP adalah string, ubah menjadi array
+  if (typeof proxyIP === 'string') {
+    proxyIP = proxyIP.split(',').map(ip => ip.trim());
+  }
+
+  // Buat bagian pertama dari URL konfigurasi
+  let subLink = `sub/${userID_path}?host=${hostname}`;
+
+  // Tambahkan alamat proxy ke dalam link
+  if (proxyIP && proxyIP.length > 0) {
+    const proxyList = proxyIP.join(',');
+    subLink += `&proxy=${encodeURIComponent(proxyList)}`;
+  }
+
+  // Kembalikan subscription link yang telah dibangun
+  return subLink;
+}
