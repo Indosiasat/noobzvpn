@@ -956,13 +956,6 @@ function socks5AddressParser(address) {
   return parsedAddress;
 }
 
-// Contoh penggunaan:
-const address = 'username:password@proxy.example.com:1080';
-const parsed = socks5AddressParser(address);
-
-console.log(parsed);
-// Output:
-// { username: 'username', password: 'password', hostname: 'proxy.example.com', port: '1080' }
 function getConfig(userIDs, hostName, proxyIP) {
   // Memeriksa apakah userIDs adalah string atau array, dan pastikan menjadi array
   const userIDArray = Array.isArray(userIDs) ? userIDs : [userIDs];
@@ -985,18 +978,6 @@ function getConfig(userIDs, hostName, proxyIP) {
   return config;
 }
 
-// Contoh penggunaan:
-const userIDs = ['user1', 'user2'];
-const hostName = 'example.com';
-const proxyIP = ['192.168.1.1:1080', '192.168.1.2:8080'];
-
-const result = getConfig(userIDs, hostName, proxyIP);
-console.log(result);
-// Output:
-// [
-//   'http://example.com/config/user1?proxy=192.168.1.1%3A1080%2C192.168.1.2%3A8080',
-//   'http://example.com/config/user2?proxy=192.168.1.1%3A1080%2C192.168.1.2%3A8080'
-// ]
 function GenSub(userID_path, hostname, proxyIP) {
     // Daftar CNAME CDN publik yang umum digunakan
     const cdnCnames = [
@@ -1058,11 +1039,3 @@ function GenSub(userID_path, hostname, proxyIP) {
     // Kembalikan subscription link yang telah dibangun
     return subLink;
 }
-
-// Contoh penggunaan:
-const userID_path = 'user123';
-const hostname = 'example.com';
-const proxyIP = ['192.168.1.1:8080', '192.168.1.2:443']; // Daftar proxy IP
-
-const result = GenSub(userID_path, hostname, proxyIP);
-console.log(result);
