@@ -579,18 +579,77 @@ async function RemoteSocketToWS(remoteSocket, webSocket, protocolResponseHeader,
   // Coba untuk melakukan koneksi
   await tryConnect();
 }
+// Fungsi untuk menghasilkan userID setelah deploy (misalnya dari API)
+async function generateUserID() {
+  // Misalnya, kita ambil userID dari API atau database setelah deploy
+  // Sebagai contoh, kita menggunakan setTimeout untuk mensimulasikan penundaan
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const generatedUserID = 'user123';  // Ganti dengan logika Anda untuk mendapatkan userID
+      resolve(generatedUserID);
+    }, 2000);  // Simulasi delay
+  });
+}
+// Fungsi utama yang memproses protocolBuffer setelah userID tersedia
+async function processData() {
+  const protocolBuffer = someBufferData;  // Data yang valid
+  
+  if (!protocolBuffer) {
+    console.error('protocolBuffer is null or undefined!');
+    return;
+  }
 
-// Memanggil fungsi untuk memproses protocol header
-const result = ProcessProtocolHeader(protocolBuffer, userID);
-console.log(result);
+  // Tunggu hingga userID tersedia setelah deploy
+  const userID = await generateUserID();
+  console.log('UserID:', userID);  // Tampilkan userID yang telah dihasilkan
+  
+  // Memanggil fungsi untuk memproses protocol header
+  const result = ProcessProtocolHeader(protocolBuffer, userID);
+  console.log(result);
+  
+  // WebSocket
+  const webSocket = new WebSocket('wss://example.com');
+  webSocket.onopen = () => {
+    console.log('WebSocket opened successfully');
+    RemoteSocketToWS(null, webSocket, 'Header response', 3, console.log);
+  };
 
-// Menggunakan WebSocket
-const webSocket = new WebSocket('ws://example.com');
-webSocket.onopen = () => {
-  // Panggil RemoteSocketToWS saat WebSocket terbuka
-  RemoteSocketToWS(null, webSocket, 'Header response', 3, console.log);
+  webSocket.onerror = (error) => {
+    console.error('WebSocket Error: ', error);
+  };
+
+  webSocket.onmessage = (message) => {
+    console.log('Received message: ', message.data);
+  };
+
+  webSocket.onclose = () => {
+    console.log('WebSocket connection closed');
+  };
+}
+
+// Jalankan fungsi utama
+processData();
+// Fungsi RemoteSocketToWS
+function RemoteSocketToWS(param1, webSocket, message, code, callback) {
+    // Mengirimkan pesan melalui WebSocket
+    webSocket.send(message);
+    callback('Message sent successfully!');
+}
+
+// Menangani kesalahan WebSocket
+webSocket.onerror = (error) => {
+    console.error('WebSocket Error: ', error);
 };
 
+// Menangani pesan yang diterima dari WebSocket
+webSocket.onmessage = (message) => {
+    console.log('Received message: ', message.data);
+};
+
+// Menangani penutupan koneksi WebSocket
+webSocket.onclose = () => {
+    console.log('WebSocket connection closed');
+};
   // Fungsi untuk menulis data ke WebSocket
   async function writeToWebSocket(data) {
     try {
