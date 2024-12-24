@@ -491,3 +491,51 @@ async function readStream() {
 }
 
 readStream();
+function ProcessProtocolHeader(protocolBuffer, userID) {
+  try {
+    // Pastikan protocolBuffer adalah objek tipe Buffer atau ArrayBuffer
+    if (!(protocolBuffer instanceof ArrayBuffer || Buffer.isBuffer(protocolBuffer))) {
+      throw new Error('Protocol buffer harus berupa ArrayBuffer atau Buffer.');
+    }
+
+    // Decode buffer menjadi string atau objek yang sesuai
+    const decoder = new TextDecoder(); // Dekoder untuk mengubah buffer menjadi string
+    const protocolHeader = decoder.decode(protocolBuffer);
+
+    // Logika untuk memproses header protokol sesuai dengan kebutuhan
+    if (!protocolHeader || protocolHeader.length === 0) {
+      throw new Error('Header protokol kosong.');
+    }
+
+    // Misalkan kita memeriksa apakah userID ada di dalam header
+    if (protocolHeader.includes(userID)) {
+      console.log('UserID ditemukan dalam header protokol.');
+    } else {
+      console.log('UserID tidak ditemukan dalam header protokol.');
+    }
+
+    // Proses lebih lanjut sesuai kebutuhan, misalnya ekstraksi informasi dari header
+    const headerInfo = {
+      protocol: protocolHeader.split(' ')[0],  // Misalnya, protokol ada di awal header
+      data: protocolHeader.slice(protocolHeader.indexOf(' ') + 1), // Data setelah protokol
+    };
+
+    console.log('Header Protocol:', headerInfo);
+
+    // Mengembalikan hasil dari pemrosesan header
+    return headerInfo;
+
+  } catch (err) {
+    // Tangani error yang mungkin terjadi selama pemrosesan
+    console.error('Error memproses header protokol:', err.message);
+    return null; // Kembalikan null jika terjadi kesalahan
+  }
+}
+
+// Contoh penggunaan
+const protocolBuffer = new TextEncoder().encode('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n');
+const userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
+
+// Memanggil fungsi untuk memproses protocol header
+const result = ProcessProtocolHeader(protocolBuffer, userID);
+console.log(result);
