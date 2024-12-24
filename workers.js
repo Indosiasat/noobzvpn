@@ -221,3 +221,100 @@ export default {
     return new Response('Path yang valid harus dipilih.', { status: 400 });
   },
 };
+// Fungsi untuk menangani WebSocket dan protokol tertentu
+async function ProtocolOverWSHandler(request) {
+  try {
+    // Membuka koneksi WebSocket
+    const [client, server] = Object.values(new WebSocketPair());
+
+    // Menangani pesan WebSocket
+    server.accept();
+    server.addEventListener('message', async (event) => {
+      try {
+        const message = JSON.parse(event.data);
+
+        // Log pesan yang diterima
+        log('Pesan diterima: ', message);
+
+        // Proses pesan berdasarkan tipe protokol
+        const response = await handleProtocol(message);
+        await write(server, response);
+
+      } catch (error) {
+        log('Error dalam pemrosesan pesan: ', error);
+        close(server, 'Error dalam pemrosesan pesan');
+      }
+    });
+
+    // Menangani koneksi WebSocket yang tertutup
+    server.addEventListener('close', () => {
+      log('Koneksi WebSocket ditutup.');
+    });
+
+    // Tangani error pada WebSocket
+    server.addEventListener('error', (error) => {
+      log('Error WebSocket: ', error);
+      abort(server, 'Koneksi WebSocket dibatalkan karena error');
+    });
+
+    // Mengembalikan response WebSocket
+    return new Response(null, {
+      status: 101,
+      webSocket: client
+    });
+  } catch (error) {
+    // Log error yang terjadi selama pemrosesan
+    log('Terjadi kesalahan dalam ProtocolOverWSHandler: ', error);
+    throw new Error('Gagal memproses WebSocket');
+  }
+}
+
+// Fungsi untuk menangani log
+function log(message, data) {
+  console.log(message, data); // Menampilkan log di konsol
+}
+
+// Fungsi untuk menulis data ke WebSocket
+async function write(webSocket, data) {
+  try {
+    await webSocket.send(JSON.stringify(data)); // Menulis data ke WebSocket
+  } catch (error) {
+    log('Gagal menulis data ke WebSocket: ', error);
+    close(webSocket, 'Gagal menulis data');
+  }
+}
+
+// Fungsi untuk menutup WebSocket
+function close(webSocket, reason) {
+  try {
+    webSocket.close(1000, reason); // Menutup koneksi WebSocket
+    log('WebSocket ditutup: ', reason);
+  } catch (error) {
+    log('Gagal menutup WebSocket: ', error);
+  }
+}
+
+// Fungsi untuk membatalkan operasi WebSocket
+function abort(webSocket, reason) {
+  try {
+    webSocket.close(4000, reason); // Menutup WebSocket dengan kode 4000 untuk abort
+    log('Operasi WebSocket dibatalkan: ', reason);
+  } catch (error) {
+    log('Gagal membatalkan operasi WebSocket: ', error);
+  }
+}
+
+// Fungsi untuk menangani protokol tertentu
+async function handleProtocol(message) {
+  // Implementasikan logika untuk menangani berbagai protokol seperti VLESS, VMESS, Trojan
+  // Ini hanya contoh dasar, implementasi lebih lanjut tergantung pada protokol yang digunakan.
+  if (message.type === 'vless') {
+    return { status: 'success', message: 'Menangani VLESS' };
+  } else if (message.type === 'vmess') {
+    return { status: 'success', message: 'Menangani VMESS' };
+  } else if (message.type === 'trojan') {
+    return { status: 'success', message: 'Menangani Trojan' };
+  } else {
+    return { status: 'failed', message: 'Protokol tidak dikenali' };
+  }
+}
