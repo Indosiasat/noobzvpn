@@ -512,3 +512,91 @@ handleTcpOutboundWithRetry(host, port, data, retries, delay)
   .catch((err) => {
     console.error(err); // Log error jika gagal setelah beberapa percobaan
   });
+/**
+ * Membuat ReadableStream untuk WebSocket yang mendukung start, pull, dan cancel.
+ * @param {WebSocket} webSocket - Objek WebSocket yang akan digunakan untuk stream.
+ * @returns {ReadableStream} Stream yang dapat dibaca untuk aliran data WebSocket.
+ */
+function MakeReadableWebSocketStream(webSocket) {
+  let readerClosed = false;
+  let controller;
+
+  // Fungsi start untuk menginisialisasi stream
+  const start = (readableStreamDefaultController) => {
+    controller = readableStreamDefaultController;
+    console.log("WebSocket stream started.");
+
+    // Menangani event 'message' dari WebSocket untuk menarik data ke dalam stream
+    webSocket.addEventListener('message', (event) => {
+      if (!readerClosed) {
+        try {
+          // Menarik data dari WebSocket dan memasukkannya ke dalam stream
+          controller.enqueue(event.data);
+        } catch (err) {
+          console.error("Error in pulling WebSocket message: ", err);
+        }
+      }
+    });
+
+    // Menangani event 'close' untuk menghentikan stream saat WebSocket tertutup
+    webSocket.addEventListener('close', () => {
+      if (!readerClosed) {
+        controller.close();
+        readerClosed = true;
+      }
+    });
+
+    // Menangani event 'error' untuk menangani kesalahan WebSocket
+    webSocket.addEventListener('error', (err) => {
+      if (!readerClosed) {
+        controller.error(err);
+        readerClosed = true;
+      }
+    });
+  };
+
+  // Fungsi pull untuk menarik data ke dalam stream jika diperlukan
+  const pull = (readableStreamDefaultController) => {
+    if (!readerClosed) {
+      // WebSocket terus menerus mengirimkan data, controller akan menarik data sesuai permintaan.
+      console.log("Pulling data from WebSocket...");
+    }
+  };
+
+  // Fungsi cancel untuk membatalkan pembacaan stream jika WebSocket ditutup atau cancel dipanggil
+  const cancel = () => {
+    if (!readerClosed) {
+      console.log("Canceling WebSocket stream.");
+      webSocket.close();
+      readerClosed = true;
+    }
+  };
+
+  // Membuat dan mengembalikan ReadableStream dengan dukungan start, pull, dan cancel
+  return new ReadableStream({
+    start,
+    pull,
+    cancel
+  });
+}
+
+// Contoh penggunaan
+const webSocket = new WebSocket('wss://example.com/socket');
+const readableStream = MakeReadableWebSocketStream(webSocket);
+
+// Menggunakan stream untuk membaca data
+const reader = readableStream.getReader();
+async function readStream() {
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      console.log("Received data from WebSocket: ", value);
+    }
+  } catch (err) {
+    console.error("Error reading from WebSocket stream: ", err);
+  }
+}
+
+// Mulai membaca stream
+readStream();
