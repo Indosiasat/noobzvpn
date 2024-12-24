@@ -318,3 +318,58 @@ async function handleProtocol(message) {
     return { status: 'failed', message: 'Protokol tidak dikenali' };
   }
 }
+async function HandleTCPOutBound(remoteSocket, addressType, addressRemote, portRemote, rawClientData, webSocket, protocolResponseHeader, log) {
+  // Fungsi untuk mencoba membuat koneksi TCP dan menulis data
+  const MAX_RETRIES = 3; // Tentukan jumlah maksimal percobaan ulang
+  let retries = 0;
+
+  // Fungsi untuk mencoba membuat koneksi TCP
+  const connectToRemoteSocket = async () => {
+    try {
+      // Mencoba menghubungkan ke remote socket
+      log(`Mencoba menghubungkan ke ${addressRemote}:${portRemote}...`);
+      const socket = await connect({
+        host: addressRemote,
+        port: portRemote,
+        protocol: addressType // Menentukan tipe alamat (IPv4, IPv6)
+      });
+
+      // Menulis data ke remote socket
+      await socket.write(rawClientData);
+      log(`Data berhasil dikirim ke ${addressRemote}:${portRemote}`);
+
+      // Membaca respon dari remote socket
+      const response = await socket.read();
+      if (response) {
+        log('Respon diterima dari server:', response);
+      }
+
+      // Kirim kembali respon ke WebSocket jika ada
+      if (webSocket) {
+        webSocket.send(response); // Mengirim data ke WebSocket
+      }
+
+      return socket; // Mengembalikan socket yang terhubung
+
+    } catch (error) {
+      // Jika gagal, tangani percobaan ulang
+      retries++;
+      log(`Percobaan ${retries} gagal: ${error.message}`);
+
+      if (retries < MAX_RETRIES) {
+        log(`Mencoba ulang koneksi (${retries}/${MAX_RETRIES})...`);
+        return connectToRemoteSocket(); // Coba lagi jika belum mencapai batas retry
+      } else {
+        // Jika sudah mencapai maksimal percobaan, lemparkan error
+        log('Koneksi gagal setelah beberapa kali percobaan.');
+        throw new Error(`Gagal menghubungkan ke ${addressRemote}:${portRemote}`);
+      }
+    }
+  };
+
+  // Mencoba membuat koneksi TCP dan menunggu hasilnya
+  const remoteSocketConnection = await connectToRemoteSocket();
+
+  // Mengembalikan koneksi remote socket yang berhasil terhubung
+  return remoteSocketConnection;
+}
