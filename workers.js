@@ -628,3 +628,46 @@ async function RemoteSocketToWS(remoteSocket, webSocket, protocolResponseHeader,
   // Mulai proses pengiriman data antara remoteSocket dan WebSocket
   await handleSocketData();
 }
+function base64ToArrayBuffer(base64Str) {
+  // Meng-decode string base64 menjadi string biner
+  const binaryString = atob(base64Str);
+
+  // Membuat ArrayBuffer dengan panjang sesuai dengan panjang string biner
+  const length = binaryString.length;
+  const arrayBuffer = new ArrayBuffer(length);
+
+  // Membuat Uint8Array untuk mengakses data dalam ArrayBuffer
+  const uint8Array = new Uint8Array(arrayBuffer);
+
+  // Menyalin setiap byte dari string biner ke Uint8Array
+  for (let i = 0; i < length; i++) {
+    uint8Array[i] = binaryString.charCodeAt(i);
+  }
+
+  // Mengembalikan ArrayBuffer yang berisi data dari Base64
+  return arrayBuffer;
+}
+function isValidUUID(uuid) {
+  // Regex untuk memvalidasi format UUID
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  // Mengembalikan true jika UUID valid, false jika tidak
+  return uuidRegex.test(uuid);
+}
+function safeCloseWebSocket(socket) {
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    try {
+      // Mengirimkan close frame dan menunggu hingga WebSocket benar-benar ditutup
+      socket.close(1000, 'Normal closure');
+      
+      // Menangani event 'close' untuk memastikan socket tertutup dengan baik
+      socket.addEventListener('close', () => {
+        console.log('WebSocket connection closed safely.');
+      });
+    } catch (error) {
+      console.error('Error closing WebSocket:', error);
+    }
+  } else {
+    console.log('WebSocket is not open or already closed.');
+  }
+}
