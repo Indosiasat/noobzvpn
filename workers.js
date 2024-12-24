@@ -539,3 +539,92 @@ const userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
 // Memanggil fungsi untuk memproses protocol header
 const result = ProcessProtocolHeader(protocolBuffer, userID);
 console.log(result);
+async function RemoteSocketToWS(remoteSocket, webSocket, protocolResponseHeader, retry, log) {
+  let retries = 3; // Jumlah maksimal retry jika koneksi gagal
+  let connected = false;
+
+  // Fungsi untuk menulis data ke WebSocket
+  async function writeToWebSocket(data) {
+    try {
+      if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+        webSocket.send(data); // Mengirim data ke WebSocket
+        log('Data dikirim ke WebSocket');
+      } else {
+        log('WebSocket tidak terbuka. Data tidak dapat dikirim.');
+      }
+    } catch (error) {
+      log('Error saat menulis ke WebSocket: ' + error.message);
+      throw error; // Melempar error untuk penanganan lebih lanjut
+    }
+  }
+
+  // Fungsi untuk menutup WebSocket dan mengirimkan status
+  async function closeWebSocket() {
+    try {
+      if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+        webSocket.close(); // Menutup WebSocket
+        log('WebSocket ditutup.');
+      }
+    } catch (error) {
+      log('Error saat menutup WebSocket: ' + error.message);
+    }
+  }
+
+  // Fungsi untuk membatalkan operasi jika terjadi masalah
+  async function abortConnection() {
+    try {
+      if (remoteSocket) {
+        remoteSocket.destroy(); // Menghancurkan koneksi remote socket
+        log('Koneksi remote socket dibatalkan.');
+      }
+      await closeWebSocket(); // Menutup WebSocket
+    } catch (error) {
+      log('Error saat membatalkan koneksi: ' + error.message);
+    }
+  }
+
+  // Fungsi utama untuk menangani data antara remote socket dan WebSocket
+  async function handleSocketData() {
+    try {
+      while (retries > 0 && !connected) {
+        try {
+          // Menunggu data dari remoteSocket
+          const chunk = await new Promise((resolve, reject) => {
+            remoteSocket.once('data', resolve);
+            remoteSocket.once('error', reject);
+          });
+
+          // Mengirimkan data yang diterima ke WebSocket
+          await writeToWebSocket(chunk);
+          
+          connected = true; // Koneksi berhasil
+          log('Koneksi berhasil dan data telah diterima.');
+        } catch (error) {
+          retries--;
+          log(`Gagal menghubungkan ke WebSocket, mencoba lagi. Retries tersisa: ${retries}`);
+
+          // Jika ada retry, kita mencoba lagi setelah delay
+          if (retries > 0) {
+            await new Promise(resolve => setTimeout(resolve, 2000)); // Tunggu 2 detik sebelum retry
+          } else {
+            log('Retry gagal. Koneksi tidak berhasil.');
+            await abortConnection(); // Batalkan koneksi jika retry habis
+            break;
+          }
+        }
+      }
+    } catch (error) {
+      log('Error saat menangani data socket: ' + error.message);
+      await abortConnection(); // Jika terjadi kesalahan, batalkan koneksi
+    }
+  }
+
+  // Menambahkan protocol response header ke WebSocket (jika perlu)
+  if (protocolResponseHeader) {
+    log('Menambahkan header respons protokol ke WebSocket.');
+    // Anda bisa menambahkan header ini pada tahap awal pengaturan WebSocket
+  }
+
+  // Mulai proses pengiriman data antara remoteSocket dan WebSocket
+  await handleSocketData();
+}
