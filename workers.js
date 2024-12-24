@@ -532,10 +532,6 @@ function ProcessProtocolHeader(protocolBuffer, userID) {
   }
 }
 
-// Contoh penggunaan
-const protocolBuffer = new TextEncoder().encode('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n');
-const userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
-
 // Memanggil fungsi untuk memproses protocol header
 const result = ProcessProtocolHeader(protocolBuffer, userID);
 console.log(result);
@@ -647,13 +643,7 @@ function base64ToArrayBuffer(base64Str) {
   // Mengembalikan ArrayBuffer yang berisi data dari Base64
   return arrayBuffer;
 }
-function isValidUUID(uuid) {
-  // Regex untuk memvalidasi format UUID
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-  // Mengembalikan true jika UUID valid, false jika tidak
-  return uuidRegex.test(uuid);
-}
 function safeCloseWebSocket(socket) {
   if (socket && socket.readyState === WebSocket.OPEN) {
     try {
