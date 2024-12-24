@@ -114,12 +114,12 @@ function getAllConfig(request, hostName, proxyList, page = 0) {
     // Build HTML
 const document = new Document(request);
 document.setTitle(`
-  Welcome to 
+  Welcome 
   <a href="https://saweria.co/mengare" 
      class="text-blue-500 font-semibold" 
      target="_blank" 
      rel="noopener noreferrer">
-    INDOSIASAT
+    DONASI UNTUK PROYEK INI
   </a>
 `);
 document.addInfo(`Total: ${proxyList.length}`);
