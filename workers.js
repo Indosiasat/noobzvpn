@@ -243,3 +243,60 @@ function handleDefaultPath(url, request) {
         headers: { "Content-Type": "text/html; charset=utf-8" },
     });
 }
+/**
+ * Menangani permintaan pada rute default ketika tidak ada rute khusus yang cocok.
+ * Menghasilkan dan mengembalikan halaman antarmuka cloud drive dalam format HTML.
+ * @param {URL} url - Objek URL dari permintaan
+ * @param {Request} request - Objek permintaan yang masuk
+ * @returns {Response} Respons HTML dengan antarmuka cloud drive
+ */
+function handleDefaultPath(url, request) {
+    // Menampilkan halaman antarmuka cloud drive (contoh)
+    const cloudDriveHTML = `
+        <html>
+            <head>
+                <title>Cloud Drive</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 20px;
+                        background-color: #f4f4f4;
+                    }
+                    h1 {
+                        color: #333;
+                    }
+                    pre {
+                        background-color: #fff;
+                        border: 1px solid #ddd;
+                        padding: 10px;
+                        font-size: 14px;
+                        overflow-x: auto;
+                    }
+                    footer {
+                        margin-top: 20px;
+                        text-align: center;
+                        font-size: 12px;
+                        color: #888;
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>Welcome to Cloud Drive</h1>
+                <p>Your request path was: <strong>${url.pathname}</strong></p>
+                <h2>Cloudflare Request Information:</h2>
+                <pre>${JSON.stringify(request.cf, null, 4)}</pre>
+
+                <footer>
+                    <p>Powered by Cloudflare Workers</p>
+                </footer>
+            </body>
+        </html>
+    `;
+
+    // Mengembalikan halaman HTML dengan status 200 dan header yang sesuai
+    return new Response(cloudDriveHTML, {
+        status: 200,
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+    });
+}
