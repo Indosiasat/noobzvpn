@@ -835,3 +835,22 @@ function abortConnection(socket) {
   console.log('Aborting connection...');
   socket.destroy(); // Memutuskan koneksi secara paksa
 }
+/**
+ * Mengonversi string Base64 menjadi ArrayBuffer.
+ * @param {string} base64 - String dalam format Base64 yang akan dikonversi.
+ * @returns {ArrayBuffer} - ArrayBuffer hasil konversi.
+ */
+function base64ToArrayBuffer(base64) {
+  // Menghitung panjang string base64 setelah dikurangi padding ('=')
+  const binaryString = atob(base64);
+  const len = binaryString.length;
+  const arrayBuffer = new ArrayBuffer(len);
+  const uint8Array = new Uint8Array(arrayBuffer);
+
+  // Menyalin data dari string biner ke dalam Uint8Array
+  for (let i = 0; i < len; i++) {
+    uint8Array[i] = binaryString.charCodeAt(i);
+  }
+
+  return arrayBuffer;
+}
