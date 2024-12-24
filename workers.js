@@ -170,11 +170,40 @@ async function handleSOCKS5(message, webSocket) {
 }
 
 // ======================================
+// Fungsi untuk Menangani Path Default
+// ======================================
+
+/**
+ * Fungsi untuk menangani permintaan pada path default
+ * Jika tidak ada jalur yang cocok dengan protokol atau URL tertentu
+ * @param {URL} url - URL yang diminta
+ * @param {Request} request - Permintaan HTTP
+ * @returns {Response} - Respon default jika tidak ada kecocokan
+ */
+async function handleDefaultPath(url, request) {
+  const defaultContent = `
+    <html>
+      <head><title>Proxy Default</title></head>
+      <body>
+        <h1>Selamat datang di Proxy Default</h1>
+        <p>Path yang Anda akses tidak dikenali. Silakan coba path yang valid untuk menggunakan proxy.</p>
+      </body>
+    </html>
+  `;
+  return new Response(defaultContent, {
+    status: 200,
+    headers: { 'Content-Type': 'text/html;charset=utf-8' },
+  });
+}
+
+// ======================================
 // Fetch Handler untuk WebSocket
 // ======================================
 
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
     const upgradeHeader = request.headers.get('Upgrade');
     
     if (upgradeHeader && upgradeHeader.toLowerCase() === 'websocket') {
@@ -182,7 +211,13 @@ export default {
       handleWebSocket(server, env, ctx);
       return new Response(null, { status: 101, webSocket: client });
     }
-
-    return new Response('Hanya koneksi WebSocket yang didukung.', { status: 400 });
+    
+    // Tangani path default jika tidak ditemukan path yang cocok
+    if (!url.pathname.startsWith('/sub/') && !url.pathname.startsWith('/bestip/') && !url.pathname.startsWith('/cf')) {
+      return handleDefaultPath(url, request);
+    }
+    
+    // Tangani path yang terkait dengan proxy atau konfigurasi lainnya
+    return new Response('Path yang valid harus dipilih.', { status: 400 });
   },
 };
