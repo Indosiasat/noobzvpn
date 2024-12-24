@@ -1181,3 +1181,39 @@ function GenSub(userID_path, hostname, proxyIP) {
   // Kembalikan subscription link yang telah dibangun
   return subLink;
 }
+/**
+ * Fungsi untuk menghasilkan URL acak dengan protokol HTTP atau HTTPS dan path acak
+ * @param {number} pathLength - Panjang path yang diinginkan
+ * @returns {string} - URL acak dengan protokol dan path
+ */
+function randomPathHttpHttps(pathLength = 10) {
+  // Pilih protokol secara acak (http atau https)
+  const protocol = Math.random() < 0.5 ? 'http' : 'https';
+  
+  // Panggil fungsi untuk membuat path acak
+  const randomPath = randomPath(pathLength);
+
+  // Gabungkan protokol dan path untuk membentuk URL lengkap
+  return `${protocol}://example.com${randomPath}`;
+}
+
+/**
+ * Fungsi untuk menghasilkan path acak
+ * @param {number} length - Panjang path yang diinginkan
+ * @returns {string} - Path acak
+ */
+function randomPath(length = 10) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Karakter yang digunakan dalam path
+  let randomString = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length); // Pilih indeks acak dari karakter
+    randomString += characters[randomIndex]; // Tambahkan karakter yang dipilih ke dalam string acak
+  }
+
+  return `/${randomString}`; // Kembalikan path acak dalam format /<random_string>
+}
+
+// Contoh penggunaan
+const randomUrl = randomPathHttpHttps(12); // URL acak dengan path sepanjang 12 karakter
+console.log(randomUrl); // Contoh output: https://example.com/9Tg7kW1y6jA9
