@@ -114,14 +114,15 @@ function getAllConfig(request, hostName, proxyList, page = 0) {
     // Build HTML
 const document = new Document(request);
 document.setTitle(`
-  Welcome 
+  DONASI 
   <a href="https://saweria.co/mengare" 
      class="text-blue-500 font-semibold" 
      target="_blank" 
      rel="noopener noreferrer">
-    DONASI UNTUK PROYEK INI
+    SAWERIA
   </a>
 `);
+    
 document.addInfo(`Total: ${proxyList.length}`);
 document.addInfo(`Page: ${page}/${Math.floor(proxyList.length / PROXY_PER_PAGE)}`);
 
