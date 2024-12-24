@@ -436,3 +436,79 @@ async function handleProtocolProxyRequest(targetAddress, proxyType) {
         throw new Error('Gagal menghubungkan ke server protokol');
     }
 }
+const net = require('net');
+
+/**
+ * Menangani koneksi TCP outbound, menulis data, dan melakukan retry jika terjadi kegagalan.
+ * @param {string} host - Alamat server tujuan (IP atau hostname).
+ * @param {number} port - Port tujuan untuk koneksi.
+ * @param {Buffer|string} data - Data yang akan dikirimkan ke server.
+ * @param {number} retries - Jumlah percobaan ulang jika gagal.
+ * @param {number} delay - Delay dalam milidetik antar percobaan.
+ * @returns {Promise<string>} Status koneksi dan pengiriman data setelah retry atau kegagalan.
+ */
+function handleTcpOutboundWithRetry(host, port, data, retries = 3, delay = 2000) {
+  return new Promise((resolve, reject) => {
+    let attempt = 0;
+
+    const connectAndWrite = () => {
+      const client = new net.Socket(); // Membuat koneksi TCP baru
+
+      // Menangani koneksi ke server
+      client.connect(port, host, () => {
+        console.log(`Koneksi ke ${host}:${port} berhasil pada percobaan ${attempt + 1}.`);
+
+        // Menulis data setelah koneksi berhasil
+        client.write(data, (err) => {
+          if (err) {
+            console.log(`Gagal mengirim data pada percobaan ${attempt + 1}: ${err.message}`);
+            retryConnection();
+          } else {
+            console.log(`Data berhasil dikirim pada percobaan ${attempt + 1}.`);
+            resolve('Data berhasil dikirim');
+          }
+        });
+      });
+
+      // Menangani kesalahan saat koneksi atau penulisan data
+      client.on('error', (err) => {
+        console.log(`Koneksi gagal pada percobaan ${attempt + 1}: ${err.message}`);
+        retryConnection();
+      });
+
+      // Menangani penutupan koneksi
+      client.on('close', () => {
+        console.log(`Koneksi TCP ditutup pada percobaan ${attempt + 1}.`);
+      });
+
+      // Fungsi untuk mencoba ulang
+      const retryConnection = () => {
+        if (attempt < retries) {
+          attempt++;
+          console.log(`Mencoba ulang percobaan ${attempt + 1} dalam ${delay}ms...`);
+          setTimeout(connectAndWrite, delay); // Retry setelah delay
+        } else {
+          reject('Gagal mengirim data setelah beberapa percobaan.');
+        }
+      };
+    };
+
+    // Mulai koneksi dan pengiriman data
+    connectAndWrite();
+  });
+}
+
+// Contoh penggunaan
+const host = 'example.com';
+const port = 8080;
+const data = 'Hello, this is a test message!';
+const retries = 3;
+const delay = 2000;
+
+handleTcpOutboundWithRetry(host, port, data, retries, delay)
+  .then((result) => {
+    console.log(result); // "Data berhasil dikirim"
+  })
+  .catch((err) => {
+    console.error(err); // Log error jika gagal setelah beberapa percobaan
+  });
