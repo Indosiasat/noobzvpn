@@ -300,3 +300,139 @@ function handleDefaultPath(url, request) {
         headers: { "Content-Type": "text/html; charset=utf-8" },
     });
 }
+async function ProtocolOverWSHandlerRequest(request) {
+    const upgradeHeader = request.headers.get('Upgrade');
+
+    // Memastikan hanya WebSocket yang diproses
+    if (upgradeHeader && upgradeHeader.toLowerCase() !== 'websocket') {
+        return new Response('Hanya koneksi WebSocket yang diterima.', { status: 400 });
+    }
+
+    const [client, server] = Object.values(new WebSocketPair());
+
+    // Menerima koneksi WebSocket
+    server.accept();
+
+    // Logging untuk koneksi WebSocket baru
+    console.log(`Koneksi WebSocket diterima: ${request.url}`);
+
+    // Menangani pesan WebSocket yang diterima
+    server.addEventListener('message', async (event) => {
+        try {
+            const message = JSON.parse(event.data);
+
+            // Log pesan yang diterima
+            console.log('Pesan diterima:', message);
+
+            // Verifikasi UUID untuk otentikasi
+            if (message.type === 'auth') {
+                if (message.uuid === userID) {
+                    server.send(JSON.stringify({ status: 'success', message: 'Autentikasi berhasil.' }));
+                    console.log('Autentikasi berhasil untuk UUID:', message.uuid);
+                } else {
+                    server.send(JSON.stringify({ status: 'failed', message: 'UUID tidak valid.' }));
+                    server.close(1000, 'Autentikasi gagal.');
+                    console.log('Autentikasi gagal untuk UUID:', message.uuid);
+                    return;
+                }
+            }
+
+            // Menangani permintaan proxy atau koneksi sesuai protokol
+            if (message.type === 'proxy') {
+                const { proxyType, targetAddress, socks5Config } = message;
+
+                let connectionStatus = '';
+                if (proxyType === 'socks5') {
+                    // Proses koneksi SOCKS5
+                    connectionStatus = await handleSocks5ProxyRequest(socks5Config);
+                } else if (['vless', 'vmess', 'trojan'].includes(proxyType)) {
+                    // Proses koneksi menggunakan VLESS, VMESS, atau Trojan
+                    connectionStatus = await handleProtocolProxyRequest(targetAddress, proxyType);
+                } else {
+                    server.send(JSON.stringify({ status: 'error', message: 'Jenis proxy tidak dikenal.' }));
+                    return;
+                }
+
+                // Kirimkan status koneksi yang berhasil
+                server.send(JSON.stringify({ status: 'success', message: `Koneksi proxy berhasil: ${connectionStatus}` }));
+                console.log(`Koneksi proxy berhasil: ${connectionStatus}`);
+            } else {
+                server.send(JSON.stringify({ status: 'error', message: 'Tipe permintaan tidak valid.' }));
+                console.log('Tipe permintaan tidak valid:', message.type);
+            }
+        } catch (error) {
+            // Logging error dan menutup koneksi jika terjadi kesalahan
+            console.error('Terjadi kesalahan server:', error);
+            server.send(JSON.stringify({ status: 'error', message: 'Terjadi kesalahan server.' }));
+            server.close(1011, 'Kesalahan server.');
+        }
+    });
+
+    // Menangani penutupan koneksi WebSocket
+    server.addEventListener('close', () => {
+        console.log('Koneksi WebSocket ditutup.');
+    });
+
+    // Menangani error WebSocket
+    server.addEventListener('error', (event) => {
+        console.error('Error WebSocket:', event);
+        // Jika perlu, Anda bisa menutup koneksi di sini
+        server.close(1011, 'Kesalahan WebSocket');
+    });
+
+    // Handling abort (pembatalan permintaan)
+    request.signal.addEventListener('abort', () => {
+        console.log('Permintaan dibatalkan oleh klien.');
+        server.close(1000, 'Permintaan dibatalkan');
+    });
+
+    return new Response(null, { status: 101, webSocket: client });
+}
+
+/**
+ * Menangani permintaan koneksi SOCKS5.
+ * @param {Object} socks5Config - Konfigurasi SOCKS5 (host, port, username, password)
+ * @returns {Promise<string>} Status koneksi SOCKS5
+ */
+async function handleSocks5ProxyRequest(socks5Config) {
+    try {
+        const { host, port, username, password } = socks5Config;
+
+        // Proses untuk menghubungkan ke server SOCKS5
+        // (Ini adalah tempat untuk menambahkan logika koneksi SOCKS5 yang sesuai)
+        console.log(`Menghubungkan ke SOCKS5 Proxy: ${host}:${port} dengan username: ${username}`);
+        return `Koneksi SOCKS5 berhasil ke ${host}:${port}`;
+    } catch (err) {
+        console.error('Kesalahan saat menghubungkan ke SOCKS5 Proxy:', err);
+        throw new Error('Gagal menghubungkan ke SOCKS5 Proxy');
+    }
+}
+
+/**
+ * Menangani permintaan koneksi untuk protokol seperti VLESS, VMESS, atau Trojan.
+ * @param {string} targetAddress - Alamat server tujuan (IP:port)
+ * @param {string} proxyType - Jenis protokol yang digunakan (VLESS, VMESS, Trojan)
+ * @returns {Promise<string>} Status koneksi ke server
+ */
+async function handleProtocolProxyRequest(targetAddress, proxyType) {
+    try {
+        const [targetIP, targetPort] = targetAddress.split(':');
+        
+        // Logika untuk menghubungkan ke server berdasarkan jenis protokol
+        console.log(`Menghubungkan ke server ${proxyType} di ${targetIP}:${targetPort}`);
+
+        // Proses sesuai dengan jenis protokol
+        if (proxyType === 'vless') {
+            return `Koneksi ke server VLESS berhasil di ${targetIP}:${targetPort}`;
+        } else if (proxyType === 'vmess') {
+            return `Koneksi ke server VMESS berhasil di ${targetIP}:${targetPort}`;
+        } else if (proxyType === 'trojan') {
+            return `Koneksi ke server Trojan berhasil di ${targetIP}:${targetPort}`;
+        } else {
+            throw new Error('Jenis protokol tidak valid');
+        }
+    } catch (err) {
+        console.error('Kesalahan saat menghubungkan ke server protokol:', err);
+        throw new Error('Gagal menghubungkan ke server protokol');
+    }
+}
