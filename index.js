@@ -1254,9 +1254,9 @@ console.log(config); // Output: { ip: '192.168.1.1', port: '8080' }
  * @returns {string} - Alamat proxy yang dipilih secara acak
  */
 function selectRandomAddress(proxyAddresses) {
-  // Memeriksa apakah ada alamat proxy yang diberikan
-  if (!proxyAddresses || proxyAddresses.length === 0) {
-    throw new Error('Daftar alamat proxy kosong.');
+  // Memeriksa apakah proxyAddresses adalah array dan tidak kosong
+  if (!Array.isArray(proxyAddresses) || proxyAddresses.length === 0) {
+    throw new Error('Daftar alamat proxy harus berupa array yang tidak kosong.');
   }
 
   // Pilih indeks acak dari daftar proxyAddresses
@@ -1268,5 +1268,9 @@ function selectRandomAddress(proxyAddresses) {
 
 // Contoh penggunaan
 const proxyAddresses = ['192.168.1.1:8080', '192.168.1.2:443', '192.168.1.3:3128'];
-const randomProxy = selectRandomAddress(proxyAddresses);
-console.log(randomProxy); // Output: salah satu dari alamat proxy acak
+try {
+  const randomProxy = selectRandomAddress(proxyAddresses);
+  console.log(randomProxy); // Output: salah satu dari alamat proxy acak
+} catch (error) {
+  console.error(error.message);
+}
