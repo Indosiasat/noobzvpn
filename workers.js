@@ -452,7 +452,7 @@ const webSocketServer = {
   }
 };
 
-const log = (message) => console.log(message);
+const logger = (message) => console.log(message);
 
 // Fungsi start untuk memulai stream
 const startController = (controller) => {
