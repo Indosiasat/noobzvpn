@@ -1028,14 +1028,20 @@ function GenSub(userID_path, hostname, proxyIP) {
         proxyIP = proxyIP.split(',').map(ip => ip.trim());
     }
 
+    // Pilih proxy acak dari daftar proxy
+    const proxyAddress = selectRandomAddress(proxyIP);
+
+    // Ambil konfigurasi proxy dari alamat yang dipilih
+    const { hostname: proxyHost, port: proxyPort } = handleProxyConfig(proxyAddress);
+
+    // Pilih path acak
+    const randomPath = randomPath();
+
     // Membuat bagian pertama dari URL konfigurasi
-    let subLink = `sub/${userID_path}?host=${hostname}`;
+    let subLink = `sub/${userID_path}?host=${hostname}&path=${randomPath}`;
 
     // Menambahkan alamat proxy ke dalam link jika ada
-    if (proxyIP && proxyIP.length > 0) {
-        const proxyList = proxyIP.join(',');
-        subLink += `&proxy=${encodeURIComponent(proxyList)}`;
-    }
+    subLink += `&proxy=${encodeURIComponent(proxyHost)}&port=${encodeURIComponent(proxyPort)}`;
 
     // Menambahkan CNAME CDN ke dalam URL
     if (cdnCnames && cdnCnames.length > 0) {
@@ -1056,9 +1062,7 @@ function GenSub(userID_path, hostname, proxyIP) {
 // Contoh penggunaan:
 const userID_path = 'user123';
 const hostname = 'example.com';
-const proxyIP = ['192.168.1.1:8080', '192.168.1.2:443'];
+const proxyIP = ['192.168.1.1:8080', '192.168.1.2:443']; // Daftar proxy IP
 
 const result = GenSub(userID_path, hostname, proxyIP);
 console.log(result);
-// Output:
-// 'sub/user123?host=example.com&proxy=192.168.1.1%3A8080%2C192.168.1.2%3A443&cdn_cnames=cloudflare.com%2Ccdn.cloudflare.com%2C1.1.1.1%2C1.0.0.1%2C1.1.1.1.cloudflare-dns.com%2C1.0.0.1.cloudflare-dns.com%2Cdns.cloudflare.com%2Cdns.google%2Cresolvers.cloudflare.com%2Cakamai.net%2Cakamaized.net%2Ca2cdn.net%2Cfastly.net%2Ccloudfront.net%2Camazonaws.com%2Cawsstatic.com%2Ckeycdn.com%2Cstackpathdns.com%2Cmaxcdn.com%2Cstackpath.com%2Cb-cdn.net%2Cbunnycdn.com%2Cbunnycdn.cloud%2Cquic.cloud%2Csucuri.net%2Csucuricloud.com%2Csucuri.com%2Ccdn77.org%2Ccdn77.com%2Cincapsula.com%2Cimperva.com%2Cedgecastcdn.net%2Ccdnetworks.com%2Ccdns.net%2Cstackpathdns.com&cdn_proxy_ips=104.16.0.0%2F12%2C104.17.0.0%2F16%2C23.48.0.0%2F14%2C23.46.0.0%2F15%2C23.235.32.0%2F22%2C185.31.16.0%2F22%2C205.251.192.0%2F19%2C205.251.249.0%2F24%2C185.2.4.0%2F22%2C185.2.4.0%2F24%2C185.31.16.0%2F22'
