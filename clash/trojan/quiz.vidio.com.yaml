@@ -1,0 +1,168 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7895
+ipv6: false
+mode: rule
+log-level: silent
+allow-lan: true
+external-controller: 0.0.0.0:9090
+secret: ""
+bind-address: "*"
+unified-delay: true
+profile:
+  store-selected: true
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  listen: 0.0.0.0:7874
+  nameserver:
+    - "https://8.8.8.8/dns-query"
+    - "https://8.8.4.4/dns-query"
+  fallback:
+    - "https://1.1.1.1/dns-query"
+    - 8.8.8.8
+    - 1.1.1.1
+  default-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+
+rules:
+  - AND,((NETWORK,UDP),(DST-PORT,123)),DIRECT
+  - AND,((NETWORK,UDP),(OR,((DST-PORT,443),(GEOSITE,youtube)))),REJECT
+  - GEOIP,PRIVATE,DIRECT,no-resolve
+  - MATCH,Tunnel
+
+proxy-groups:
+ - name: Tunnel
+   type: select
+   proxies:
+    - Url Test
+    - Selector
+   url: 'https://cp.cloudflare.com/generate_204'
+   interval: 300
+ - name: Url Test
+   type: url-test
+   url: 'https://cp.cloudflare.com/generate_204'
+   interval: 300
+   proxies:
+    - 1 🇰🇷 KT WS TLS [indosiasat]
+    - 2 🇰🇷 KT WS TLS [indosiasat]
+    - 4 🇰🇷 KT WS NTLS [indosiasat]
+    - 5 🇰🇷 KT WS NTLS [indosiasat]
+    - 7 🇺🇸 Clouvider WS TLS [indosiasat]
+    - 8 🇺🇸 Clouvider WS TLS [indosiasat]
+    - 10 🇺🇸 Clouvider WS NTLS [indosiasat]
+ - name: Selector
+   type: select
+   url: 'https://cp.cloudflare.com/generate_204'
+   interval: 300
+   proxies:
+    - 1 🇰🇷 KT WS TLS [indosiasat]
+    - 2 🇰🇷 KT WS TLS [indosiasat]
+    - 4 🇰🇷 KT WS NTLS [indosiasat]
+    - 5 🇰🇷 KT WS NTLS [indosiasat]
+    - 7 🇺🇸 Clouvider WS TLS [indosiasat]
+    - 8 🇺🇸 Clouvider WS TLS [indosiasat]
+    - 10 🇺🇸 Clouvider WS NTLS [indosiasat]
+
+proxies:
+  - name: 1 🇰🇷 KT WS TLS [indosiasat]
+    server: quiz.vidio.com
+    port: 443
+    type: trojan
+    password: cb409eda-4834-4664-a977-447373bf45fb
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /118.45.202.239-30076
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 2 🇰🇷 KT WS TLS [indosiasat]
+    server: quiz.vidio.com
+    port: 443
+    type: vless
+    uuid: cb409eda-4834-4664-a977-447373bf45fb
+    cipher: auto
+    tls: true
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    servername: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /118.45.202.239-30076
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 4 🇰🇷 KT WS NTLS [indosiasat]
+    server: quiz.vidio.com
+    port: 80
+    type: trojan
+    password: cb409eda-4834-4664-a977-447373bf45fb
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /118.45.202.239-30076
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 5 🇰🇷 KT WS NTLS [indosiasat]
+    server: quiz.vidio.com
+    port: 80
+    type: vless
+    uuid: cb409eda-4834-4664-a977-447373bf45fb
+    cipher: auto
+    tls: false
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /118.45.202.239-30076
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 7 🇺🇸 Clouvider WS TLS [indosiasat]
+    server: quiz.vidio.com
+    port: 443
+    type: trojan
+    password: cb409eda-4834-4664-a977-447373bf45fb
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /162.120.71.222-443
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 8 🇺🇸 Clouvider WS TLS [indosiasat]
+    server: quiz.vidio.com
+    port: 443
+    type: vless
+    uuid: cb409eda-4834-4664-a977-447373bf45fb
+    cipher: auto
+    tls: true
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    servername: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /162.120.71.222-443
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 10 🇺🇸 Clouvider WS NTLS [indosiasat]
+    server: quiz.vidio.com
+    port: 80
+    type: trojan
+    password: cb409eda-4834-4664-a977-447373bf45fb
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /162.120.71.222-443
+      headers:
+        Host: indosiasat.noobzvpn.my.id
