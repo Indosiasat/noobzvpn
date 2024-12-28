@@ -1,0 +1,208 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7895
+ipv6: false
+mode: rule
+log-level: silent
+allow-lan: true
+external-controller: 0.0.0.0:9090
+secret: ""
+bind-address: "*"
+unified-delay: true
+profile:
+  store-selected: true
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  listen: 0.0.0.0:7874
+  nameserver:
+    - "https://8.8.8.8/dns-query"
+    - "https://8.8.4.4/dns-query"
+  fallback:
+    - "https://1.1.1.1/dns-query"
+    - 8.8.8.8
+    - 1.1.1.1
+  default-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+
+rules:
+  - AND,((NETWORK,UDP),(DST-PORT,123)),DIRECT
+  - AND,((NETWORK,UDP),(OR,((DST-PORT,443),(GEOSITE,youtube)))),REJECT
+  - GEOIP,PRIVATE,DIRECT,no-resolve
+  - MATCH,Tunnel
+
+proxy-groups:
+ - name: Tunnel
+   type: select
+   proxies:
+    - Url Test
+    - Selector
+   url: 'https://cp.cloudflare.com/generate_204'
+   interval: 300
+ - name: Url Test
+   type: url-test
+   url: 'https://cp.cloudflare.com/generate_204'
+   interval: 300
+   proxies:
+    - 1 🇮🇩 Alibaba WS TLS [indosiasat]
+    - 2 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    - 3 🇮🇩 PT Cloud Hosting Indonesia WS TLS [indosiasat]
+    - 4 🇮🇩 Cloud Teknologi Nusantara WS TLS [indosiasat]
+    - 5 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    - 6 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    - 7 🇮🇩 Incapsula WS TLS [indosiasat]
+    - 8 🇮🇩 PT Pusat Media Indonesia WS TLS [indosiasat]
+    - 9 🇮🇩 Tencent cloud computing WS TLS [indosiasat]
+    - 10 🇮🇩 Cloud Teknologi Nusantara WS TLS [indosiasat]
+ - name: Selector
+   type: select
+   url: 'https://cp.cloudflare.com/generate_204'
+   interval: 300
+   proxies:
+    - 1 🇮🇩 Alibaba WS TLS [indosiasat]
+    - 2 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    - 3 🇮🇩 PT Cloud Hosting Indonesia WS TLS [indosiasat]
+    - 4 🇮🇩 Cloud Teknologi Nusantara WS TLS [indosiasat]
+    - 5 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    - 6 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    - 7 🇮🇩 Incapsula WS TLS [indosiasat]
+    - 8 🇮🇩 PT Pusat Media Indonesia WS TLS [indosiasat]
+    - 9 🇮🇩 Tencent cloud computing WS TLS [indosiasat]
+    - 10 🇮🇩 Cloud Teknologi Nusantara WS TLS [indosiasat]
+
+proxies:
+  - name: 1 🇮🇩 Alibaba WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /149.129.250.187-443
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 2 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /172.232.231.24-587
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 3 🇮🇩 PT Cloud Hosting Indonesia WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /103.186.1.209-2053
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 4 🇮🇩 Cloud Teknologi Nusantara WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /103.133.223.50-2096
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 5 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /172.232.239.175-587
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 6 🇮🇩 Akamai Connected Cloud WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /172.232.239.147-587
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 7 🇮🇩 Incapsula WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /45.60.186.91-443
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 8 🇮🇩 PT Pusat Media Indonesia WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /103.6.207.108-8080
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 9 🇮🇩 Tencent cloud computing WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /43.133.145.156-53136
+      headers:
+        Host: indosiasat.noobzvpn.my.id
+  - name: 10 🇮🇩 Cloud Teknologi Nusantara WS TLS [indosiasat]
+    server: support.vidio.com
+    port: 443
+    type: trojan
+    password: c987a188-6539-47c9-8024-ec51291ee5b3
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    sni: indosiasat.noobzvpn.my.id
+    ws-opts:
+      path: /103.133.223.52-2096
+      headers:
+        Host: indosiasat.noobzvpn.my.id
